@@ -1,0 +1,795 @@
+// ============================================================================
+//  MODO FLASH ⚡ — Preguntas rápidas (MC, V/F, completar, relacionar, ordenar)
+//  Todo extraído de la guía. Cada item lleva: world (w1..w6) y level (1..4).
+//  Tipos: 'mc' | 'tf' | 'complete' | 'match' | 'order'
+// ============================================================================
+
+export const FLASH = [
+  // ---------------------------- MUNDO 1 -----------------------------------
+  {
+    id: 'f1_1',
+    world: 'w1',
+    level: 1,
+    type: 'mc',
+    q: '¿Por qué se dice que el reclutamiento es un imperativo estratégico?',
+    options: [
+      'Porque dejó de ser reactivo: es continuo y construye la reserva de talentos que da ventaja competitiva',
+      'Porque solo se busca gente cuando aparece una vacante',
+      'Porque lo decide siempre el área de RRHH sin los gerentes',
+      'Porque su único objetivo es bajar los costos de los sueldos',
+    ],
+    answer: 0,
+    explain:
+      'Antes era reactivo (buscar solo al aparecer la vacante). Hoy es un proceso continuo que fortalece la reserva de talentos y da ventaja competitiva.',
+  },
+  {
+    id: 'f1_2',
+    world: 'w1',
+    level: 1,
+    type: 'mc',
+    q: '¿Qué es la marca empleadora (employer branding)?',
+    options: [
+      'La propuesta de valor que la empresa comunica para volverse "empleador de elección"',
+      'El logo y los colores de la empresa',
+      'El sueldo que paga la empresa',
+      'La cantidad de empleados que tiene la firma',
+    ],
+    answer: 0,
+    explain:
+      'Es la propuesta de valor que se comunica en cada proceso; debe reflejar los valores de la firma y posicionarla como "empleador de elección".',
+  },
+  {
+    id: 'f1_3',
+    world: 'w1',
+    level: 1,
+    type: 'tf',
+    q: 'Hoy el reclutamiento es una función reactiva: solo se busca gente cuando aparece una vacante.',
+    answer: false,
+    explain:
+      'FALSO. Antes era reactivo; hoy es un proceso continuo y estratégico que fortalece la reserva de talentos.',
+  },
+  {
+    id: 'f1_4',
+    world: 'w1',
+    level: 1,
+    type: 'complete',
+    q: 'La herramienta típica del reclutamiento interno es el ______ (publicación interna de vacantes en intranet, carteleras y mails).',
+    options: ['job posting', 'employer branding', 'headhunting', 'assessment'],
+    answer: 0,
+    explain:
+      'El job posting es la publicación interna de vacantes (intranet, carteleras, mails).',
+  },
+  {
+    id: 'f1_5',
+    world: 'w1',
+    level: 4,
+    type: 'tf',
+    q: 'La decisión final de contratación la toma el área de RRHH.',
+    answer: false,
+    explain:
+      'FALSO. La toma el gerente de línea (con soporte de RRHH), porque es quien integrará a la persona a su equipo.',
+  },
+  {
+    id: 'f1_6',
+    world: 'w1',
+    level: 1,
+    type: 'mc',
+    q: '¿Cuál es el objetivo central de la selección?',
+    options: [
+      'Maximizar los aciertos y evitar los errores',
+      'Contratar a la mayor cantidad de gente posible',
+      'Reducir el sueldo de los nuevos ingresantes',
+      'Eliminar el reclutamiento interno',
+    ],
+    answer: 0,
+    explain: 'La selección busca elegir a las personas con las calificaciones adecuadas: maximizar aciertos y evitar errores.',
+  },
+  {
+    id: 'f1_7',
+    world: 'w1',
+    level: 3,
+    type: 'match',
+    q: 'Relacioná cada fuente de reclutamiento externo con el tipo de puesto.',
+    pairs: [
+      ['Universidades y redes sociales', 'Pasantías y jóvenes profesionales'],
+      ['Agencias de personal eventual', 'Tareas temporarias'],
+      ['Sindicatos y bolsas de empleo', 'Puestos operativos / producción'],
+      ['Referidos por empleados', 'Muy efectivos (suelen tener premios monetarios)'],
+    ],
+    explain:
+      'Cada fuente externa se elige según el tipo de puesto a cubrir. Las ferias, además, sirven para difundir la marca.',
+  },
+  {
+    id: 'f1_8',
+    world: 'w1',
+    level: 4,
+    type: 'order',
+    q: 'Ordená los pasos del proceso de selección.',
+    items: [
+      'Relevar la necesidad y el perfil',
+      'Definir la estrategia (interna / externa)',
+      'Definir instancias de evaluación y evaluadores',
+      'Integrar la información recolectada',
+      'Decisión con los gerentes de línea',
+      'Exámenes pre-ocupacionales',
+      'Inducción',
+    ],
+    explain:
+      'El proceso empieza definiendo el perfil y termina con la inducción del nuevo empleado.',
+  },
+  {
+    id: 'f1_9',
+    world: 'w1',
+    level: 3,
+    type: 'mc',
+    q: 'Una empresa tarda meses en cubrir puestos clave, sus reemplazos fracasan y promueve por favoritismo. ¿Qué indica?',
+    options: [
+      'Que su banco de talento interno es débil',
+      'Que tiene una excelente marca empleadora',
+      'Que su reclutamiento externo es perfecto',
+      'Que no necesita planes de sucesión',
+    ],
+    answer: 0,
+    explain:
+      'Son justamente las señales de que el banco de talento interno está débil.',
+  },
+  {
+    id: 'f1_10',
+    world: 'w1',
+    level: 1,
+    type: 'mc',
+    q: 'La entrevista, dentro de la selección, es...',
+    options: [
+      'La herramienta de evaluación central (telefónica, individual, grupal o video)',
+      'Un paso opcional que casi no se usa',
+      'La instancia final por encima de las referencias',
+      'Una prueba técnica de habilidades',
+    ],
+    answer: 0,
+    explain:
+      'La entrevista es central; se complementa con pruebas técnicas y, como instancia final, el pedido de referencias laborales.',
+  },
+  {
+    id: 'f1_11',
+    world: 'w1',
+    level: 4,
+    type: 'complete',
+    q: 'Los tres costos de un error de selección son: directos, indirectos y de ______.',
+    options: ['oportunidad', 'mercado', 'producción', 'inducción'],
+    answer: 0,
+    explain:
+      'De oportunidad = la persona que habría tenido éxito y no fue contratada.',
+  },
+
+  // ---------------------------- MUNDO 2 -----------------------------------
+  {
+    id: 'f2_1',
+    world: 'w2',
+    level: 1,
+    type: 'mc',
+    q: '¿Cuál es la diferencia clave entre capacitación y desarrollo?',
+    options: [
+      'Capacitación = roles presentes/corto plazo; Desarrollo = roles futuros más complejos',
+      'Capacitación = futuro; Desarrollo = presente',
+      'Son exactamente lo mismo',
+      'La capacitación es solo para gerentes',
+    ],
+    answer: 0,
+    explain: 'Capacitación apunta al presente; desarrollo prepara para roles futuros más complejos.',
+  },
+  {
+    id: 'f2_2',
+    world: 'w2',
+    level: 4,
+    type: 'order',
+    q: 'Ordená las 4 etapas del proceso (ciclo) de capacitación.',
+    items: [
+      'Evaluación de necesidades (DNC)',
+      'Diseño',
+      'Implementación',
+      'Evaluación',
+    ],
+    explain:
+      'Es un ciclo: la evaluación final retroalimenta todo el proceso.',
+  },
+  {
+    id: 'f2_3',
+    world: 'w2',
+    level: 1,
+    type: 'mc',
+    q: 'En el modelo Kirkpatrick, ¿qué nivel mide la aplicación al trabajo?',
+    options: ['Transferencia', 'Reacción', 'Aprendizaje', 'Resultados'],
+    answer: 0,
+    explain:
+      'Reacción (satisfacción) → Aprendizaje (asimilación) → Transferencia (aplicación al trabajo) → Resultados (impacto en el negocio).',
+  },
+  {
+    id: 'f2_4',
+    world: 'w2',
+    level: 4,
+    type: 'order',
+    q: 'Ordená los 4 niveles de evaluación del modelo Kirkpatrick.',
+    items: ['Reacción', 'Aprendizaje', 'Transferencia', 'Resultados'],
+    explain:
+      'Reacción (satisfacción) → Aprendizaje (saberes) → Transferencia (aplicación) → Resultados (impacto en el negocio).',
+  },
+  {
+    id: 'f2_5',
+    world: 'w2',
+    level: 1,
+    type: 'complete',
+    q: 'Una competencia es el conjunto integrado de conocimientos, ______ y actitudes.',
+    options: ['habilidades', 'sueldos', 'sanciones', 'vacantes'],
+    answer: 0,
+    explain: 'Competencia = conocimientos + habilidades + actitudes.',
+  },
+  {
+    id: 'f2_6',
+    world: 'w2',
+    level: 3,
+    type: 'mc',
+    q: 'Un técnico senior acompaña al nuevo en reparaciones reales hasta que aprende. ¿Qué tipo de capacitación es?',
+    options: [
+      'Capacitación en el puesto',
+      'Desarrollo gerencial',
+      'Universidad corporativa',
+      'Evaluación de necesidades (DNC)',
+    ],
+    answer: 0,
+    explain:
+      'La capacitación en el puesto da experiencia práctica con el supervisor o un referente experto; es muy eficaz para competencias técnicas.',
+  },
+  {
+    id: 'f2_7',
+    world: 'w2',
+    level: 3,
+    type: 'mc',
+    q: '¿Cuál de estos es un método de desarrollo gerencial?',
+    options: [
+      'Rotación de puestos, coaching y universidades corporativas',
+      'Job posting',
+      'Pedido de referencias laborales',
+      'Mesas de calibración',
+    ],
+    answer: 0,
+    explain:
+      'El desarrollo gerencial usa asignaciones suplentes, rotación, proyectos especiales, coaching, universidades corporativas, becas y casos.',
+  },
+  {
+    id: 'f2_8',
+    world: 'w2',
+    level: 1,
+    type: 'tf',
+    q: 'La capacitación y el desarrollo son costosos, por eso hay que medir su efectividad y monitorearlos.',
+    answer: true,
+    explain:
+      'VERDADERO. Deben contribuir a las metas organizacionales, por eso se mide su efectividad.',
+  },
+  {
+    id: 'f2_9',
+    world: 'w2',
+    level: 3,
+    type: 'mc',
+    q: 'Las herramientas de RRHH para calibrar capacidades y potencial son...',
+    options: [
+      'Inventarios de talento y planes de sucesión',
+      'Exámenes pre-ocupacionales',
+      'Bonos anuales',
+      'Mesas de calibración',
+    ],
+    answer: 0,
+    explain:
+      'RRHH calibra capacidades/potencial con inventarios de talento y planes de sucesión.',
+  },
+  {
+    id: 'f2_10',
+    world: 'w2',
+    level: 4,
+    type: 'tf',
+    q: 'En el modelo Kirkpatrick, "Resultados" mide el impacto en el negocio.',
+    answer: true,
+    explain:
+      'VERDADERO. Resultados = impacto en el negocio, el nivel más alto del modelo.',
+  },
+
+  // ---------------------------- MUNDO 3 -----------------------------------
+  {
+    id: 'f3_1',
+    world: 'w3',
+    level: 1,
+    type: 'mc',
+    q: 'Diferencia entre gestión y evaluación del desempeño:',
+    options: [
+      'La gestión es el proceso global; la evaluación es la medición puntual dentro de él',
+      'La evaluación es el proceso global; la gestión es la medición puntual',
+      'Son sinónimos exactos',
+      'La gestión solo la hace RRHH y la evaluación el empleado',
+    ],
+    answer: 0,
+    explain:
+      'Gestión = crear un ambiente donde la gente rinda al máximo (proceso global). Evaluación = comparar el desempeño con los requerimientos del puesto (medición puntual).',
+  },
+  {
+    id: 'f3_2',
+    world: 'w3',
+    level: 1,
+    type: 'complete',
+    q: 'El MBO (Administración por Objetivos) fue propuesto por Peter ______ en 1954.',
+    options: ['Drucker', 'Chiavenato', 'Mondy', 'Bohlander'],
+    answer: 0,
+    explain: 'Peter Drucker propuso el MBO en 1954.',
+  },
+  {
+    id: 'f3_3',
+    world: 'w3',
+    level: 1,
+    type: 'mc',
+    q: '¿Cuáles son los 3 factores que influyen en el desempeño?',
+    options: [
+      'Capacidad, motivación y ambiente',
+      'Sueldo, antigüedad y edad',
+      'Reacción, aprendizaje y resultados',
+      'Directa, indirecta y no monetaria',
+    ],
+    answer: 0,
+    explain: 'Capacidad (poder), motivación (querer) y ambiente (que el entorno lo permita).',
+  },
+  {
+    id: 'f3_4',
+    world: 'w3',
+    level: 1,
+    type: 'mc',
+    q: 'Los dos grandes métodos de evaluación del desempeño son:',
+    options: [
+      'MBO (Administración por Objetivos) y evaluación por competencias',
+      'Entrevista y referencias laborales',
+      'Directa e indirecta',
+      'Job posting y ferias de empleo',
+    ],
+    answer: 0,
+    explain: 'MBO (Drucker, 1954) y evaluación por competencias.',
+  },
+  {
+    id: 'f3_5',
+    world: 'w3',
+    level: 3,
+    type: 'mc',
+    q: 'Un jefe le dice a su empleado: "este reporte tuvo 3 errores", en vez de "sos descuidado". ¿Qué principio aplica?',
+    options: [
+      'Retroalimentación sobre el hacer, no sobre el ser',
+      'Disciplina laboral como castigo',
+      'Mesas de calibración',
+      'Acción afirmativa',
+    ],
+    answer: 0,
+    explain:
+      'La buena retroalimentación se enfoca en lo realizado (el hacer), no en la persona (el ser), y sobre lo que está bajo control del empleado.',
+  },
+  {
+    id: 'f3_6',
+    world: 'w3',
+    level: 4,
+    type: 'order',
+    q: 'Ordená los 5 pasos del proceso de gestión del desempeño.',
+    items: [
+      'Fijación de objetivos y expectativas',
+      'Retroalimentación continua',
+      'Evaluación por parte del gerente',
+      'Entrevista de revisión formal',
+      'Integración de información y toma de decisiones',
+    ],
+    explain:
+      'Va de fijar objetivos a integrar la información y tomar decisiones (aumentos, ascensos, capacitación).',
+  },
+  {
+    id: 'f3_7',
+    world: 'w3',
+    level: 3,
+    type: 'mc',
+    q: 'Reuniones de gerentes para que las evaluaciones sean consistentes entre sí. ¿Qué son?',
+    options: [
+      'Mesas de calibración',
+      'Inducción',
+      'Análisis de riesgos',
+      'Job posting',
+    ],
+    answer: 0,
+    explain:
+      'Las mesas de calibración alinean las evaluaciones entre gerentes para que sean consistentes.',
+  },
+  {
+    id: 'f3_8',
+    world: 'w3',
+    level: 4,
+    type: 'tf',
+    q: 'Toda evaluación del desempeño debe terminar con un plan de acción consensuado entre supervisor y empleado.',
+    answer: true,
+    explain: 'VERDADERO. Es consensuado entre ambos.',
+  },
+  {
+    id: 'f3_9',
+    world: 'w3',
+    level: 1,
+    type: 'complete',
+    q: 'Una idea central del desempeño: "lo que no se ______ no se valora".',
+    options: ['mide', 'paga', 'firma', 'capacita'],
+    answer: 0,
+    explain: 'Medir lo que se logra es un objetivo central del proceso: lo que no se mide no se valora.',
+  },
+
+  // ---------------------------- MUNDO 4 -----------------------------------
+  {
+    id: 'f4_1',
+    world: 'w4',
+    level: 1,
+    type: 'mc',
+    q: 'Los tres componentes de la compensación (Snell & Bohlander) son:',
+    options: [
+      'Directa, indirecta y no monetaria',
+      'Fija, variable y legal',
+      'Legal, espontánea y moderna',
+      'Capacidad, motivación y ambiente',
+    ],
+    answer: 0,
+    explain:
+      'Directa (sueldos, bonos, comisiones), indirecta (beneficios) y no monetaria (reconocimiento, ambiente, flexibilidad).',
+  },
+  {
+    id: 'f4_2',
+    world: 'w4',
+    level: 3,
+    type: 'match',
+    q: 'Relacioná cada componente de la compensación con su ejemplo.',
+    pairs: [
+      ['Directa', 'Sueldo fijo, bonos y comisiones'],
+      ['Indirecta', 'Los beneficios al empleado'],
+      ['No monetaria', 'Reconocimiento, buen ambiente, home office'],
+    ],
+    explain:
+      'Los tres deben alinearse con los objetivos de la organización.',
+  },
+  {
+    id: 'f4_3',
+    world: 'w4',
+    level: 4,
+    type: 'mc',
+    q: '¿Cuáles de estos son factores EXTERNOS de la mezcla de pago?',
+    options: [
+      'Costo de vida, negociación colectiva y requisitos legales',
+      'Valor del trabajo y capacidad de pago del empleador',
+      'Estrategia de compensación y valor relativo del empleado',
+      'Reacción, aprendizaje y transferencia',
+    ],
+    answer: 0,
+    explain:
+      'Externos: mercado de trabajo, tasas del área, costo de vida, negociación colectiva y requisitos legales. Internos: estrategia, valor del trabajo, valor del empleado y capacidad de pago.',
+  },
+  {
+    id: 'f4_4',
+    world: 'w4',
+    level: 1,
+    type: 'tf',
+    q: 'La remuneración fija no motiva: funciona solo como factor higiénico.',
+    answer: true,
+    explain:
+      'VERDADERO (Chiavenato). La fija es estable y estandariza, pero no motiva ni incentiva a tomar riesgos.',
+  },
+  {
+    id: 'f4_5',
+    world: 'w4',
+    level: 1,
+    type: 'mc',
+    q: 'Las prestaciones LEGALES incluyen...',
+    options: [
+      'Vacaciones, aguinaldo, jubilación, seguro de accidentes y maternidad',
+      'Comedor, transporte y préstamos',
+      'Reconocimiento y home office',
+      'Bonos por rentabilidad',
+    ],
+    answer: 0,
+    explain:
+      'Legales = obligatorias por ley. Las espontáneas (voluntarias) son comedor, transporte, seguro de vida, préstamos, gratificaciones.',
+  },
+  {
+    id: 'f4_6',
+    world: 'w4',
+    level: 3,
+    type: 'mc',
+    q: 'A fin de año se reparte plata porque la empresa superó su meta de rentabilidad. ¿Qué es?',
+    options: [
+      'Un plan de bono anual (remuneración variable)',
+      'Una prestación legal',
+      'Compensación no monetaria',
+      'Pago por antigüedad',
+    ],
+    answer: 0,
+    explain:
+      'El bono anual es un ejemplo de remuneración variable: valor monetario al cierre del año según el aporte al desempeño de la empresa.',
+  },
+  {
+    id: 'f4_7',
+    world: 'w4',
+    level: 4,
+    type: 'complete',
+    q: 'Según Chiavenato, la organización usa recompensas (incentivos) y ______ (castigos) para reforzar conductas.',
+    options: ['sanciones', 'comisiones', 'prestaciones', 'competencias'],
+    answer: 0,
+    explain:
+      'Recompensas para reforzar conductas deseadas; sanciones para inhibir las indeseables.',
+  },
+  {
+    id: 'f4_8',
+    world: 'w4',
+    level: 4,
+    type: 'tf',
+    q: 'La compensación es una herramienta de comunicación: transmite qué valora la empresa.',
+    answer: true,
+    explain:
+      'VERDADERO. Las prácticas de pago y beneficios comunican qué valora la empresa, y están ligadas a los medios de vida (cuidado con inflación).',
+  },
+  {
+    id: 'f4_9',
+    world: 'w4',
+    level: 1,
+    type: 'complete',
+    q: 'Un beneficio voluntario que da la empresa (no obligatorio por ley) se llama prestación ______.',
+    options: ['espontánea', 'legal', 'directa', 'higiénica'],
+    answer: 0,
+    explain:
+      'Espontáneas o voluntarias: comedor, transporte, seguro de vida, préstamos, gratificaciones.',
+  },
+
+  // ---------------------------- MUNDO 5 -----------------------------------
+  {
+    id: 'f5_1',
+    world: 'w5',
+    level: 1,
+    type: 'mc',
+    q: '¿Qué es el contrato psicológico?',
+    options: [
+      'Las expectativas de un intercambio justo de obligaciones entre empleado y empleador',
+      'El contrato firmado ante escribano',
+      'Las reglas entre la empresa y la sociedad',
+      'El convenio colectivo del sindicato',
+    ],
+    answer: 0,
+    explain:
+      'El empleado espera compensación justa, estabilidad, capacitación y promociones; el empleador espera desempeño y cumplimiento.',
+  },
+  {
+    id: 'f5_2',
+    world: 'w5',
+    level: 1,
+    type: 'tf',
+    q: 'La disciplina laboral busca castigar al empleado.',
+    answer: false,
+    explain:
+      'FALSO. La disciplina NO es castigo: es definir estándares aceptables de conducta y desempeño.',
+  },
+  {
+    id: 'f5_3',
+    world: 'w5',
+    level: 1,
+    type: 'mc',
+    q: '¿Quién es el principal responsable de un ambiente de trabajo seguro?',
+    options: [
+      'Los gerentes de línea (RRHH coordina los programas)',
+      'Solo el área de RRHH',
+      'El sindicato',
+      'El empleado nuevo',
+    ],
+    answer: 0,
+    explain:
+      'Según Mondy, los gerentes de línea son los principales responsables; RRHH coordina y supervisa.',
+  },
+  {
+    id: 'f5_4',
+    world: 'w5',
+    level: 1,
+    type: 'mc',
+    q: 'Diferencia entre ambigüedad y conflicto de roles:',
+    options: [
+      'Ambigüedad = no entender el puesto; Conflicto = perseguir objetivos opuestos',
+      'Ambigüedad = perseguir objetivos opuestos; Conflicto = no entender el puesto',
+      'Son lo mismo',
+      'Ambos significan exceso de trabajo',
+    ],
+    answer: 0,
+    explain:
+      'Ambigüedad: el empleado no entiende su puesto. Conflicto: debe perseguir objetivos opuestos.',
+  },
+  {
+    id: 'f5_5',
+    world: 'w5',
+    level: 3,
+    type: 'mc',
+    q: 'Un empleado puede escalar su queja a niveles por encima de su jefe inmediato. ¿Qué mecanismo es?',
+    options: [
+      'Política de puertas abiertas',
+      'Mediación',
+      'Análisis de riesgos',
+      'Acción afirmativa',
+    ],
+    answer: 0,
+    explain:
+      'Mecanismos de resolución de disputas: resolución alternativa, puertas abiertas y mediación (tercero neutral).',
+  },
+  {
+    id: 'f5_6',
+    world: 'w5',
+    level: 3,
+    type: 'mc',
+    q: '¿Qué es la ergonomía?',
+    options: [
+      'El diseño de los puestos para que el trabajo sea seguro y cómodo',
+      'La ausencia de enfermedad física o emocional',
+      'Un programa de bienestar de nutrición',
+      'El análisis de riesgos en el trabajo',
+    ],
+    answer: 0,
+    explain:
+      'La ergonomía revisa el diseño de puestos (interacción humana con tareas, equipo y ambiente físico) para un trabajo seguro y cómodo.',
+  },
+  {
+    id: 'f5_7',
+    world: 'w5',
+    level: 4,
+    type: 'match',
+    q: 'Relacioná cada mecanismo de resolución de disputas con su descripción.',
+    pairs: [
+      ['Resolución alternativa', 'Conciliación extra-judicial'],
+      ['Puertas abiertas', 'Escalar por encima del jefe inmediato'],
+      ['Mediación', 'Un tercero neutral facilita el acuerdo'],
+    ],
+    explain:
+      'La tendencia es usar instancias extra-judiciales que ahorran costos y tiempo.',
+  },
+  {
+    id: 'f5_8',
+    world: 'w5',
+    level: 4,
+    type: 'mc',
+    q: 'El estrés laboral, en su forma extrema, deriva en...',
+    options: [
+      'Burnout (desgaste), que es contagioso y debe prevenirse',
+      'Ambigüedad de roles',
+      'Un contrato social',
+      'Una prestación espontánea',
+    ],
+    answer: 0,
+    explain: 'El burnout es la forma extrema del estrés; es "contagioso" y debe prevenirse.',
+  },
+  {
+    id: 'f5_9',
+    world: 'w5',
+    level: 4,
+    type: 'complete',
+    q: 'La ley de referencia en salud y seguridad ocupacional es la Ley ______ de 1970 (EE.UU.).',
+    options: ['OSHA', 'MBO', 'OIT', 'DNC'],
+    answer: 0,
+    explain: 'OSHA: Ley de Seguridad y Salud Ocupacional de 1970 (EE.UU.).',
+  },
+  {
+    id: 'f5_10',
+    world: 'w5',
+    level: 3,
+    type: 'mc',
+    q: 'El "contrato social" de Mondy se refiere a...',
+    options: [
+      'Reglas escritas y no escritas entre la organización y la sociedad, el gobierno y otras organizaciones',
+      'El acuerdo de expectativas entre empleado y empleador',
+      'El convenio firmado con el sindicato',
+      'El examen pre-ocupacional',
+    ],
+    answer: 0,
+    explain:
+      'El contrato social (Mondy) abarca a la sociedad, el gobierno, otras organizaciones y las personas. El psicológico es solo empleado–empleador.',
+  },
+
+  // ---------------------------- MUNDO 6 -----------------------------------
+  {
+    id: 'f6_1',
+    world: 'w6',
+    level: 1,
+    type: 'mc',
+    q: '¿Qué es gestionar la diversidad?',
+    options: [
+      'Asegurar igualdad de oportunidades y un empleo justo y no sesgado',
+      'Contratar solo a grupos minoritarios',
+      'Eliminar todas las diferencias del equipo',
+      'Pagar distinto según el origen de cada persona',
+    ],
+    answer: 0,
+    explain:
+      'Está en agenda por la creciente diversidad poblacional (migraciones) y la multiculturalidad de la fuerza laboral.',
+  },
+  {
+    id: 'f6_2',
+    world: 'w6',
+    level: 1,
+    type: 'mc',
+    q: '¿Qué es la acción afirmativa?',
+    options: [
+      'Acciones proactivas para revertir discriminaciones pasadas contra minorías',
+      'Castigar a quien discrimina',
+      'No contratar a clases protegidas',
+      'Un beneficio espontáneo',
+    ],
+    answer: 0,
+    explain:
+      'Incluye alentar la diversidad de empleo, publicar vacantes en organizaciones barriales, eliminar obstáculos y capacitar.',
+  },
+  {
+    id: 'f6_3',
+    world: 'w6',
+    level: 1,
+    type: 'complete',
+    q: 'Las clases protegidas son: minorías étnicas, mujeres, personas mayores y personas con ______.',
+    options: ['discapacidad', 'experiencia', 'posgrado', 'antigüedad'],
+    answer: 0,
+    explain:
+      'Son grupos amparados por las leyes de igualdad de oportunidades.',
+  },
+  {
+    id: 'f6_4',
+    world: 'w6',
+    level: 4,
+    type: 'order',
+    q: 'Ordená los 4 pasos del apalancamiento de las diferencias (Snell & Bohlander).',
+    items: ['Observar', 'Comprender', 'Valorar', 'Apalancar la diferencia'],
+    explain:
+      'Negar, neutralizar o eliminar las diferencias no lleva a una gestión verdadera.',
+  },
+  {
+    id: 'f6_5',
+    world: 'w6',
+    level: 3,
+    type: 'mc',
+    q: 'Las dos ventajas de capitalizar la diversidad son:',
+    options: [
+      'Ventaja competitiva (fuerza laboral diversa) y mayor flexibilidad ante el cambio (diversidad organizativa)',
+      'Menores sueldos y menos sindicatos',
+      'Más control y menos diversidad',
+      'Reacción y resultados',
+    ],
+    answer: 0,
+    explain:
+      'Fuerza laboral diversa → ventaja competitiva. Diversidad organizativa → flexibilidad ante el cambio continuo.',
+  },
+  {
+    id: 'f6_6',
+    world: 'w6',
+    level: 4,
+    type: 'tf',
+    q: 'Negar o eliminar las diferencias es una forma válida de gestionar la diversidad.',
+    answer: false,
+    explain:
+      'FALSO. Las diferencias suelen negarse, neutralizarse o eliminarse, pero ninguna lleva a una gestión verdadera. Hay que verlas, comprenderlas y valorarlas.',
+  },
+  {
+    id: 'f6_7',
+    world: 'w6',
+    level: 3,
+    type: 'mc',
+    q: 'A nivel ORGANIZACIONAL, una buena práctica de diversidad es...',
+    options: [
+      'Recopilar datos con encuestas y establecer estructuras inclusivas',
+      'Mantener todo en secreto',
+      'Negar la tensión existente',
+      'Evitar involucrar a personas distintas',
+    ],
+    answer: 0,
+    explain:
+      'A nivel organizacional: enfrentar la tensión abiertamente, evitar el secreto, encuestar, estructuras inclusivas y recompensar la participación.',
+  },
+  {
+    id: 'f6_8',
+    world: 'w6',
+    level: 1,
+    type: 'tf',
+    q: 'La discriminación tiene consecuencias éticas, económicas y de imagen.',
+    answer: true,
+    explain:
+      'VERDADERO. Es uno de los problemas más graves; puede evitarse con buenas prácticas de RRHH.',
+  },
+]
