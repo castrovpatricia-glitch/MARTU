@@ -1,0 +1,59 @@
+name: Deploy a GitHub Pages
+
+# Publica el juego automáticamente cada vez que se actualiza la branch.
+on:
+  push:
+    branches:
+      - claude/dazzling-tesla-XgMar
+  workflow_dispatch:
+
+# Permisos que necesita la deploy de Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Una sola deploy a la vez
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Configurar Pages (lo habilita si hace falta)
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Subir artefacto
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy a GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
