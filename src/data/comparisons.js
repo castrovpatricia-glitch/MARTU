@@ -17,6 +17,7 @@ export const COMPARISONS = [
       name: 'Desarrollo',
       def: 'Prepara para roles futuros más complejos.',
     },
+    whyConfused: 'Las dos forman a la gente y muchas veces se dan juntas, por eso se mezclan. La clave es el tiempo.',
     difference: 'El eje temporal: presente/corto plazo vs. futuro/mayor complejidad.',
     example:
       'Capacitar a un cajero en el nuevo sistema (presente) vs. desarrollar a un analista para que sea jefe en 2 años (futuro).',
@@ -38,6 +39,7 @@ export const COMPARISONS = [
       name: 'Evaluación del desempeño',
       def: 'Actividad puntual dentro de ese proceso: el gerente compara el desempeño con los requerimientos del puesto.',
     },
+    whyConfused: 'Suenan casi igual y las dos usan la palabra “desempeño”, pero una es el TODO y la otra es una PARTE.',
     difference: 'La gestión es el proceso global; la evaluación es la medición puntual dentro de él.',
     example: 'La gestión es la película de todo el año; la evaluación es una foto puntual.',
     keyConcepts: [
@@ -58,6 +60,7 @@ export const COMPARISONS = [
       name: 'Reclutamiento externo',
       def: 'Candidatos de afuera; la fuente se elige según el puesto (universidades, agencias, sindicatos, ferias, referidos).',
     },
+    whyConfused: 'Las dos son “reclutamiento”, por eso se confunden. Lo que cambia es de dónde viene el candidato.',
     difference: 'Adentro vs. afuera de la empresa: disponibilidad y conocimiento previo vs. fuentes según el tipo de puesto.',
     example: 'Job posting interno para un ascenso (interno) vs. buscar pasantes en la universidad (externo).',
     keyConcepts: [
@@ -78,6 +81,7 @@ export const COMPARISONS = [
       name: 'Remuneración variable',
       def: 'Se adecúa a las diferencias individuales, premia el desempeño excepcional y no afecta costos fijos; pero rompe la igualdad y puede generar quejas/presión sindical.',
     },
+    whyConfused: 'Ambas son formas de pagar y conviven en un mismo sueldo; por eso se mezclan. Una no se mueve, la otra depende del desempeño.',
     difference: 'Estabilidad sin motivación vs. premio al desempeño con más riesgo de conflicto.',
     example: 'Sueldo base igual para todos (fija) vs. bono anual solo para el que se destacó (variable).',
     keyConcepts: [
@@ -98,6 +102,7 @@ export const COMPARISONS = [
       name: 'Remuneración variable',
       def: 'Ligada a resultados con objetivos e indicadores de medición; si es grupal, fomenta el trabajo en equipo.',
     },
+    whyConfused: 'Las dos premian rendir, por eso se mezclan. Pero el mérito mira logros INDIVIDUALES y la variable se ata a RESULTADOS con indicadores (puede ser grupal).',
     difference: 'El mérito premia logros individuales; la variable se ata a resultados medibles y puede ser grupal.',
     example: 'Aumento al empleado que cumplió sus objetivos (mérito) vs. bono que cobra todo el equipo por la meta común (variable grupal).',
     keyConcepts: [
@@ -118,6 +123,7 @@ export const COMPARISONS = [
       name: 'Conflicto de roles',
       def: 'El empleado debe perseguir objetivos opuestos.',
     },
+    whyConfused: 'Las dos hablan de “roles” y generan estrés, por eso se confunden. Una es no entender; la otra, que te tiren para lados opuestos.',
     difference: 'No entender el puesto vs. tener que perseguir objetivos opuestos. Ambas son fuentes de estrés laboral.',
     example: 'Ambigüedad: nadie te explicó tu tarea. Conflicto: te piden rapidez y calidad máxima a la vez.',
     keyConcepts: [
@@ -138,6 +144,7 @@ export const COMPARISONS = [
       name: 'Acción afirmativa',
       def: 'Acciones proactivas para revertir el impacto de discriminaciones pasadas contra grupos minoritarios.',
     },
+    whyConfused: 'Las dos buscan inclusión, por eso se mezclan. Pero una es el marco GENERAL de igualdad y la otra son medidas ACTIVAS y reparadoras hacia minorías.',
     difference:
       'La gestión de la diversidad es el marco general de igualdad; la acción afirmativa son medidas activas y reparadoras hacia minorías (publicar vacantes en barrios, eliminar obstáculos, capacitar).',
     example:
@@ -160,6 +167,7 @@ export const COMPARISONS = [
       name: 'Prestaciones espontáneas',
       def: 'Voluntarias, las da la empresa porque quiere: gratificaciones, comedor, transporte, seguro de vida, préstamos.',
     },
+    whyConfused: 'Ambas son beneficios, por eso se mezclan. La clave es quién las obliga: la ley o la empresa.',
     difference: 'Obligatorias por ley vs. voluntarias de la empresa.',
     example: 'El aguinaldo es legal (obligatorio); el comedor gratis es espontáneo (voluntario).',
     keyConcepts: [

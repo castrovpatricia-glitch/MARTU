@@ -160,7 +160,7 @@ function StudyPlan({ red, yellow, go }) {
     icon: '⏱',
     t: 'Última hora antes del oral',
     d: 'Hacé el "Repaso de emergencia 10 minutos" y volvé a tirar otro Examen del Viernes.',
-    action: { label: 'Repaso 10 min', to: 'repaso' },
+    action: { label: 'Repaso 10 min', to: 'emergencia' },
   })
 
   return (

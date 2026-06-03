@@ -9,6 +9,8 @@ import { CLAIMS } from './claims'
 import { CONNECT, MALAONDA } from './connect'
 import { AUTHOR_ITEMS, AUTHOR_NAMES } from './authors'
 import { EMERGENCY } from './emergency'
+import { LESSONS, getLesson } from './lessons'
+import { STORY } from './story'
 
 export {
   WORLDS,
@@ -23,9 +25,29 @@ export {
   AUTHOR_ITEMS,
   AUTHOR_NAMES,
   EMERGENCY,
+  LESSONS,
+  STORY,
+  getLesson,
   getWorld,
   getConcept,
 }
+
+// ----- Conceptos "completos" (concepto + lección) y orden de aprendizaje ----
+export const CONCEPTS_FLAT = WORLDS.flatMap((w, wi) =>
+  w.concepts.map((c, ci) => ({
+    ...c,
+    lesson: getLesson(c.id),
+    world: w,
+    worldIndex: wi,
+    indexInWorld: ci,
+  })),
+)
+const CONCEPT_BY_ID = Object.fromEntries(CONCEPTS_FLAT.map((c) => [c.id, c]))
+export const getConceptFull = (id) => CONCEPT_BY_ID[id]
+export const conceptsOfWorld = (worldId) => CONCEPTS_FLAT.filter((c) => c.world.id === worldId)
+
+// Pregunta abierta sugerida para "Construí tu respuesta" según el mundo
+export const openForWorld = (worldId) => OPEN.filter((q) => q.world === worldId)
 
 // ----- Helpers por mundo ----------------------------------------------------
 export const flashByWorld = (w) => FLASH.filter((q) => q.world === w)

@@ -7,6 +7,10 @@ import {
   getQuestionById,
   TOTAL_QUESTIONS,
   AUTHOR_MC,
+  CONCEPTS_FLAT,
+  STORY,
+  COMPARISONS,
+  getConceptFull,
 } from '../src/data/index.js'
 import { evaluateOpen, normalize } from '../src/utils/evaluator.js'
 
@@ -77,6 +81,34 @@ ok(good.covered.length > 0 && empty.missing.length > 0, 'covered/missing mal cal
 
 // normalize quita tildes
 ok(normalize('Capacitación Estratégica') === 'capacitacion estrategica', 'normalize falla')
+
+console.log('— Validando contenido de enseñanza (lecciones por capas) —')
+for (const c of CONCEPTS_FLAT) {
+  ok(c.lesson, `concepto ${c.id} sin lección`)
+  ok(Array.isArray(c.lesson?.layers) && c.lesson.layers.length >= 2, `${c.id}: faltan capas`)
+  ok(typeof c.lesson?.analogy === 'string' && c.lesson.analogy.length > 5, `${c.id}: sin analogía`)
+  ok(Array.isArray(c.lesson?.connections) && c.lesson.connections.length > 0, `${c.id}: sin conexiones`)
+  ok(c.simple && c.definition && c.example, `${c.id}: falta simple/definición/ejemplo`)
+}
+ok(getConceptFull('c10_psicologico')?.term?.includes('psicológico'), 'getConceptFull falla')
+console.log(`  ${CONCEPTS_FLAT.length} conceptos con lección completa`)
+
+console.log('— Validando comparaciones (Confusiones) —')
+for (const c of COMPARISONS) {
+  ok(c.whyConfused && c.difference && c.example, `${c.id}: falta whyConfused/difference/example`)
+  ok(c.left?.name && c.right?.name, `${c.id}: faltan lados`)
+}
+
+console.log('— Validando Historia TechNova —')
+ok(STORY.chapters.length >= 8, 'pocas escenas en la historia')
+const cids = new Set(CONCEPTS_FLAT.map((c) => c.id))
+for (const ch of STORY.chapters) {
+  ok(Array.isArray(ch.options) && ch.options.length >= 2, `${ch.id}: opciones inválidas`)
+  ok(Number.isInteger(ch.answer) && ch.answer >= 0 && ch.answer < ch.options.length, `${ch.id}: answer fuera de rango`)
+  ok(Array.isArray(ch.teaches) && ch.teaches.every((t) => cids.has(t)), `${ch.id}: enseña conceptos inexistentes`)
+  ok(ch.lesson && ch.lesson.length > 20, `${ch.id}: sin texto de enseñanza`)
+}
+console.log(`  ${STORY.chapters.length} capítulos válidos`)
 
 console.log('')
 if (fails === 0) console.log('✅ TODO OK — la lógica y los datos están sanos.')

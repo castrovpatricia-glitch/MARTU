@@ -12,6 +12,14 @@ import Examen from './components/modes/Examen'
 import MalaOnda from './components/modes/MalaOnda'
 import Session from './components/Session'
 import { Btn, TopBar } from './components/ui'
+// Aprendizaje (learning-first)
+import Aprender from './components/screens/Aprender'
+import Lesson from './components/screens/Lesson'
+import Confusiones from './components/screens/Confusiones'
+import MapaMental from './components/screens/MapaMental'
+import RepasoInteligente from './components/screens/RepasoInteligente'
+import Construir from './components/modes/Construir'
+import Historia from './components/modes/Historia'
 
 const findWorld = (id) => WORLDS.find((w) => w.id === id)
 
@@ -94,7 +102,26 @@ export default function App() {
       )
     }
 
+    case 'aprender':
+      return <Aprender game={game} go={go} />
+
+    case 'lesson':
+      return <Lesson conceptId={params.conceptId} game={game} go={go} />
+
+    case 'construir':
+      return <Construir game={game} go={go} worldId={params.worldId} />
+
+    case 'confusiones':
+      return <Confusiones game={game} go={go} />
+
+    case 'historia':
+      return <Historia game={game} go={go} />
+
+    case 'mapa':
+      return <MapaMental game={game} go={go} />
+
     case 'examen':
+      if (!game.examUnlocked) return <Home game={game} go={go} />
       return <Examen game={game} go={go} />
 
     case 'malaonda':
@@ -107,6 +134,9 @@ export default function App() {
       return <ExplicameFacil game={game} go={go} worldId={params.worldId} />
 
     case 'repaso':
+      return <RepasoInteligente game={game} go={go} />
+
+    case 'emergencia':
       return <Repaso game={game} go={go} />
 
     case 'ajustes':

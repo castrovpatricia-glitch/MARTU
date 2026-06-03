@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { WORLDS } from '../data'
+import { WORLDS, TOTAL_CONCEPTS } from '../data'
 
 // ============================================================================
 //  Estado del juego persistido en localStorage:
@@ -35,6 +35,12 @@ function freshState() {
     srs: {}, // questionId -> { box, due }
     stats: { answered: 0, correct: 0 },
     settings: { sound: true },
+    // --- Aprendizaje (learning-first) ---
+    visited: {}, // conceptId -> true (abrió la lección)
+    conceptStates: {}, // conceptId -> 'red' | 'yellow' | 'green' (autoevaluación)
+    storyChapters: {}, // chapterId -> true
+    storyDone: false,
+    built: {}, // openQuestionId -> true ("Construí tu respuesta" completado)
   }
 }
 
@@ -54,6 +60,11 @@ function load() {
       stats: { ...base.stats, ...(data.stats || {}) },
       settings: { ...base.settings, ...(data.settings || {}) },
       unlocked: data.unlocked?.length ? data.unlocked : base.unlocked,
+      visited: { ...base.visited, ...(data.visited || {}) },
+      conceptStates: { ...base.conceptStates, ...(data.conceptStates || {}) },
+      storyChapters: { ...base.storyChapters, ...(data.storyChapters || {}) },
+      storyDone: data.storyDone ?? base.storyDone,
+      built: { ...base.built, ...(data.built || {}) },
     }
   } catch {
     return freshState()
@@ -211,6 +222,51 @@ export function useGameState() {
     setState((s) => ({ ...s, settings: { ...s.settings, [key]: value } }))
   }, [])
 
+  // --- Aprendizaje --------------------------------------------------------
+  const markVisited = useCallback((conceptId) => {
+    setState((s) => {
+      if (s.visited[conceptId]) return { ...s, streak: touchStreak(s) }
+      return {
+        ...s,
+        streak: touchStreak(s),
+        xp: s.xp + 5,
+        visited: { ...s.visited, [conceptId]: true },
+      }
+    })
+  }, [])
+
+  const setConceptState = useCallback((conceptId, level) => {
+    setState((s) => ({
+      ...s,
+      streak: touchStreak(s),
+      visited: { ...s.visited, [conceptId]: true },
+      conceptStates: { ...s.conceptStates, [conceptId]: level },
+      xp: s.xp + (level === 'green' && s.conceptStates[conceptId] !== 'green' ? 10 : 2),
+    }))
+  }, [])
+
+  const completeChapter = useCallback((chapterId, isLast) => {
+    setState((s) => {
+      const chapters = { ...s.storyChapters, [chapterId]: true }
+      return {
+        ...s,
+        streak: touchStreak(s),
+        xp: s.xp + 15 + (isLast ? 40 : 0),
+        storyChapters: chapters,
+        storyDone: s.storyDone || isLast,
+      }
+    })
+  }, [])
+
+  const markBuilt = useCallback((topicId) => {
+    setState((s) => ({
+      ...s,
+      streak: touchStreak(s),
+      xp: s.xp + 20,
+      built: { ...s.built, [topicId]: true },
+    }))
+  }, [])
+
   const resetAll = useCallback(() => {
     const fresh = freshState()
     setState(fresh)
@@ -237,6 +293,22 @@ export function useGameState() {
       .map(([id]) => id)
   }
 
+  // --- Derivados de aprendizaje -------------------------------------------
+  const visitedCount = Object.keys(state.visited).length
+  const greenCount = Object.values(state.conceptStates).filter((v) => v === 'green').length
+  const yellowCount = Object.values(state.conceptStates).filter((v) => v === 'yellow').length
+  const redCount = Object.values(state.conceptStates).filter((v) => v === 'red').length
+  const builtCount = Object.keys(state.built).length
+  const learnPct = TOTAL_CONCEPTS ? Math.round((visitedCount / TOTAL_CONCEPTS) * 100) : 0
+  const conceptState = (id) => state.conceptStates[id] || (state.visited[id] ? 'seen' : 'unseen')
+  const storyDoneCount = Object.keys(state.storyChapters).length
+  const examReqs = {
+    visited: visitedCount >= TOTAL_CONCEPTS,
+    story: !!state.storyDone,
+    built: builtCount >= 3,
+  }
+  const examUnlocked = examReqs.visited && examReqs.story && examReqs.built
+
   return {
     state,
     xpLevel,
@@ -253,6 +325,22 @@ export function useGameState() {
     refillLives,
     setSetting,
     resetAll,
+    // aprendizaje
+    markVisited,
+    setConceptState,
+    completeChapter,
+    markBuilt,
+    conceptState,
+    visitedCount,
+    greenCount,
+    yellowCount,
+    redCount,
+    builtCount,
+    learnPct,
+    storyDoneCount,
+    examReqs,
+    examUnlocked,
+    totalConcepts: TOTAL_CONCEPTS,
     MAX_LIVES,
     UNLOCK_THRESHOLD,
   }
