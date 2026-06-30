@@ -4,57 +4,48 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Nunito"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['"Baloo 2"', '"Nunito"', 'ui-sans-serif', 'system-ui'],
+        // Futura no es web-safe: usamos Montserrat, una geométrica de la misma familia.
+        sans: ['Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['Montserrat', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       colors: {
-        brand: {
-          50: '#eef7ff',
-          100: '#d9edff',
-          200: '#bce0ff',
-          300: '#8eccff',
-          400: '#59afff',
-          500: '#3590fc',
-          600: '#1f72f1',
-          700: '#185bdd',
-          800: '#1a4ab3',
-          900: '#1b418d',
+        // Paleta del Manual de Marca País Colombia
+        co: {
+          navy: '#0b1a4a', // azul profundo (fondo)
+          navy2: '#0a1538',
+          blue: '#1b2fe0', // azul vibrante (hit)
+          yellow: '#ffd200', // amarillo (gol / energía)
+          red: '#e4002b', // rojo (café / pasión)
+          magenta: '#e6007e', // magenta
+          green: '#46c93a', // verde (ritmo / naturaleza)
+          violet: '#7b2ff7', // violeta (portada / diversidad)
+          sky: '#00b5e2', // celeste (agua / cielo)
+          orange: '#ff7a00', // naranja (creatividad)
+          ink: '#0b1020',
         },
       },
+      boxShadow: {
+        slab: '0 18px 50px -12px rgba(0,0,0,0.45)',
+        glow: '0 0 0 4px rgba(255,255,255,0.06)',
+      },
       keyframes: {
-        'pop-in': {
-          '0%': { transform: 'scale(0.8)', opacity: '0' },
-          '100%': { transform: 'scale(1)', opacity: '1' },
-        },
-        'slide-up': {
-          '0%': { transform: 'translateY(16px)', opacity: '0' },
+        'fade-up': {
+          '0%': { transform: 'translateY(22px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
-        'shake': {
-          '0%, 100%': { transform: 'translateX(0)' },
-          '20%, 60%': { transform: 'translateX(-8px)' },
-          '40%, 80%': { transform: 'translateX(8px)' },
-        },
-        'float': {
+        float: {
           '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-6px)' },
+          '50%': { transform: 'translateY(-8px)' },
         },
-        'wiggle': {
-          '0%, 100%': { transform: 'rotate(-3deg)' },
-          '50%': { transform: 'rotate(3deg)' },
-        },
-        'gradient-x': {
-          '0%, 100%': { backgroundPosition: '0% 50%' },
-          '50%': { backgroundPosition: '100% 50%' },
+        'bounce-x': {
+          '0%, 100%': { transform: 'translateX(0)' },
+          '50%': { transform: 'translateX(6px)' },
         },
       },
       animation: {
-        'pop-in': 'pop-in 0.3s ease-out',
-        'slide-up': 'slide-up 0.4s ease-out',
-        'shake': 'shake 0.4s ease-in-out',
-        'float': 'float 3s ease-in-out infinite',
-        'wiggle': 'wiggle 0.5s ease-in-out infinite',
-        'gradient-x': 'gradient-x 6s ease infinite',
+        'fade-up': 'fade-up 0.5s ease-out both',
+        float: 'float 4s ease-in-out infinite',
+        'bounce-x': 'bounce-x 1.4s ease-in-out infinite',
       },
     },
   },

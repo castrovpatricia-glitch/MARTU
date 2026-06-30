@@ -1,240 +1,206 @@
-import { useEffect, useState, useCallback } from 'react'
-import { useGameState } from './hooks/useGameState'
-import { setSoundEnabled } from './utils/sound'
-import { WORLDS, getLevels, buildModeQuestions } from './data'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 
-import Home from './components/screens/Home'
-import { MapScreen, WorldScreen } from './components/screens/Map'
-import Errores from './components/screens/Errores'
-import ExplicameFacil from './components/screens/ExplicameFacil'
-import Repaso from './components/screens/Repaso'
-import Examen from './components/modes/Examen'
-import MalaOnda from './components/modes/MalaOnda'
-import Session from './components/Session'
-import { Btn, TopBar } from './components/ui'
-// Aprendizaje (learning-first)
-import Aprender from './components/screens/Aprender'
-import Lesson from './components/screens/Lesson'
-import Confusiones from './components/screens/Confusiones'
-import MapaMental from './components/screens/MapaMental'
-import RepasoInteligente from './components/screens/RepasoInteligente'
-import Construir from './components/modes/Construir'
-import Historia from './components/modes/Historia'
+import S01Portada from './slides/S01Portada.jsx'
+import S02Marca from './slides/S02Marca.jsx'
+import S03Identidad from './slides/S03Identidad.jsx'
+import S04Atributos from './slides/S04Atributos.jsx'
+import S05Diagnostico from './slides/S05Diagnostico.jsx'
+import S06Insight from './slides/S06Insight.jsx'
+import S07Concepto from './slides/S07Concepto.jsx'
+import S08Sistema from './slides/S08Sistema.jsx'
+import S09Ecosistema from './slides/S09Ecosistema.jsx'
+import S10FiltroAR from './slides/S10FiltroAR.jsx'
+import S11ViaPublica from './slides/S11ViaPublica.jsx'
+import S12Activacion from './slides/S12Activacion.jsx'
+import S13Cierre from './slides/S13Cierre.jsx'
 
-const findWorld = (id) => WORLDS.find((w) => w.id === id)
+const SLIDES = [
+  { id: 'portada', label: 'Portada', theme: 'dark', C: S01Portada },
+  { id: 'marca', label: '¿Qué marca?', theme: 'light', C: S02Marca },
+  { id: 'identidad', label: 'Identidad', theme: 'dark', C: S03Identidad },
+  { id: 'atributos', label: 'Atributos', theme: 'light', C: S04Atributos },
+  { id: 'diagnostico', label: 'Diagnóstico', theme: 'dark', C: S05Diagnostico },
+  { id: 'insight', label: 'Insight', theme: 'dark', C: S06Insight },
+  { id: 'concepto', label: 'Concepto', theme: 'dark', C: S07Concepto },
+  { id: 'sistema', label: 'Sistema creativo', theme: 'dark', C: S08Sistema },
+  { id: 'ecosistema', label: 'Ecosistema', theme: 'dark', C: S09Ecosistema },
+  { id: 'ar', label: 'Filtro AR', theme: 'dark', C: S10FiltroAR },
+  { id: 'via', label: 'Vía pública', theme: 'light', C: S11ViaPublica },
+  { id: 'activacion', label: 'Activación', theme: 'dark', C: S12Activacion },
+  { id: 'cierre', label: 'Cierre', theme: 'dark', C: S13Cierre },
+]
 
-// Qué modos descuentan vidas (los de recall rápido sí; los de escribir no)
-const LIVE_MODES = { flash: true, nomelacreo: true, autores: true, comparaciones: false, profesor: false, conectar: false }
-
-const MODE_TITLES = {
-  flash: 'Modo Flash ⚡',
-  profesor: 'Profesor exigente 👩‍🏫',
-  comparaciones: 'Comparaciones ⚔️',
-  nomelacreo: 'No me la creo 🚨',
-  conectar: 'Conectar ideas 🧠',
-  autores: 'Modo Autores 📚',
-}
-const MODE_GRADS = {
-  flash: 'from-sky-700 to-cyan-600',
-  profesor: 'from-violet-700 to-purple-600',
-  comparaciones: 'from-emerald-700 to-teal-600',
-  nomelacreo: 'from-rose-700 to-red-600',
-  conectar: 'from-indigo-700 to-blue-600',
-  autores: 'from-amber-600 to-orange-500',
+const variants = {
+  enter: (dir) => ({ x: dir > 0 ? '100%' : '-100%', opacity: 0 }),
+  center: { x: 0, opacity: 1 },
+  exit: (dir) => ({ x: dir > 0 ? '-60%' : '60%', opacity: 0 }),
 }
 
 export default function App() {
-  const game = useGameState()
-  const [view, setView] = useState({ screen: 'home', params: {} })
+  const [[index, dir], setState] = useState([0, 0])
+  const total = SLIDES.length
+  const touch = useRef({ x: 0, y: 0, t: 0 })
 
-  // Sonido según preferencia guardada
+  const go = useCallback(
+    (next, direction) => {
+      setState(([cur]) => {
+        const clamped = Math.max(0, Math.min(total - 1, next))
+        if (clamped === cur) return [cur, 0]
+        return [clamped, direction ?? (clamped > cur ? 1 : -1)]
+      })
+    },
+    [total],
+  )
+
+  const next = useCallback(() => setState(([c]) => [Math.min(total - 1, c + 1), 1]), [total])
+  const prev = useCallback(() => setState(([c]) => [Math.max(0, c - 1), -1]), [])
+
   useEffect(() => {
-    setSoundEnabled(game.state.settings?.sound !== false)
-  }, [game.state.settings?.sound])
-
-  const go = useCallback((screen, params = {}) => {
-    setView({ screen, params })
-    window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' })
-  }, [])
-
-  const { screen, params } = view
-
-  switch (screen) {
-    case 'home':
-      return <Home game={game} go={go} />
-
-    case 'map':
-      return <MapScreen game={game} go={go} />
-
-    case 'world':
-      return <WorldScreen game={game} worldId={params.worldId} go={go} />
-
-    case 'level': {
-      const world = findWorld(params.worldId)
-      const level = getLevels(params.worldId)[params.levelIndex]
-      return (
-        <Session
-          key={level.id}
-          title={`${world.title} · ${level.title}`}
-          questions={level.questions}
-          game={game}
-          consumeLives
-          accentGradient={`${gradFor(world)} `}
-          onExit={() => go('world', { worldId: params.worldId })}
-          onFinish={(rep) => game.completeLevel(level.id, params.worldId, rep.pct)}
-        />
-      )
+    const onKey = (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') next()
+      else if (e.key === 'ArrowLeft' || e.key === 'PageUp') prev()
+      else if (e.key === ' ') {
+        e.preventDefault()
+        next()
+      } else if (e.key === 'Home') go(0, -1)
+      else if (e.key === 'End') go(total - 1, 1)
     }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [next, prev, go, total])
 
-    case 'play': {
-      const { mode, worldId } = params
-      const questions = buildModeQuestions(mode, worldId)
-      return (
-        <Session
-          key={mode + (worldId || '')}
-          title={MODE_TITLES[mode] || 'Práctica'}
-          questions={questions}
-          game={game}
-          consumeLives={LIVE_MODES[mode] ?? false}
-          accentGradient={MODE_GRADS[mode] || 'from-brand-700 to-brand-500'}
-          onExit={() => go(worldId ? 'world' : 'home', worldId ? { worldId } : undefined)}
-        />
-      )
+  const onTouchStart = (e) => {
+    const t = e.changedTouches[0]
+    touch.current = { x: t.clientX, y: t.clientY, t: Date.now() }
+  }
+  const onTouchEnd = (e) => {
+    const t = e.changedTouches[0]
+    const dx = t.clientX - touch.current.x
+    const dy = t.clientY - touch.current.y
+    if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+      if (dx < 0) next()
+      else prev()
     }
-
-    case 'aprender':
-      return <Aprender game={game} go={go} />
-
-    case 'lesson':
-      return <Lesson conceptId={params.conceptId} game={game} go={go} />
-
-    case 'construir':
-      return <Construir game={game} go={go} worldId={params.worldId} />
-
-    case 'confusiones':
-      return <Confusiones game={game} go={go} />
-
-    case 'historia':
-      return <Historia game={game} go={go} />
-
-    case 'mapa':
-      return <MapaMental game={game} go={go} />
-
-    case 'examen':
-      if (!game.examUnlocked) return <Home game={game} go={go} />
-      return <Examen game={game} go={go} />
-
-    case 'malaonda':
-      return <MalaOnda game={game} go={go} />
-
-    case 'errores':
-      return <Errores game={game} go={go} />
-
-    case 'facil':
-      return <ExplicameFacil game={game} go={go} worldId={params.worldId} />
-
-    case 'repaso':
-      return <RepasoInteligente game={game} go={go} />
-
-    case 'emergencia':
-      return <Repaso game={game} go={go} />
-
-    case 'ajustes':
-      return <Ajustes game={game} go={go} />
-
-    default:
-      return <Home game={game} go={go} />
   }
-}
 
-// Session usa `bg-gradient-to-b ${accentGradient}`: devolvemos solo el from/to
-const WORLD_GRAD = {
-  w1: 'from-sky-700 to-cyan-600',
-  w2: 'from-emerald-700 to-teal-600',
-  w3: 'from-violet-700 to-purple-600',
-  w4: 'from-amber-600 to-orange-500',
-  w5: 'from-rose-700 to-red-600',
-  w6: 'from-fuchsia-700 to-pink-600',
-}
-function gradFor(world) {
-  return WORLD_GRAD[world.id] || 'from-brand-700 to-brand-500'
-}
-
-// --------------------------- Ajustes ---------------------------------------
-function Ajustes({ game, go }) {
-  const sound = game.state.settings?.sound !== false
-  const [confirm, setConfirm] = useState(false)
-
-  const toggleSound = () => {
-    const next = !sound
-    setSoundEnabled(next)
-    game.setSetting('sound', next)
-  }
+  const cur = SLIDES[index]
+  const Comp = cur.C
+  const light = cur.theme === 'light'
+  const progress = ((index + 1) / total) * 100
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-950 pb-20">
-      <TopBar game={game} onClose={() => go('home')} title="Ajustes" />
-      <div className="mx-auto max-w-md px-4">
-        <div className="card divide-y divide-slate-100">
-          <Row label="🔊 Sonidos" >
-            <Toggle on={sound} onClick={toggleSound} />
-          </Row>
-          <Row label="📊 Tu progreso">
-            <span className="text-sm font-bold text-slate-500">
-              Nivel {game.xpLevel} · {game.overallMastery}% dominio
-            </span>
-          </Row>
-          <Row label="🔥 Racha">
-            <span className="text-sm font-bold text-slate-500">{game.state.streak.count} días (mejor {game.state.streak.best || 0})</span>
-          </Row>
+    <div
+      className="relative h-screen-safe w-full overflow-hidden bg-co-navy select-none"
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+    >
+      {/* Barra de progreso superior */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-40 h-1.5">
+        <div className={`h-full w-full ${light ? 'bg-co-navy/10' : 'bg-white/12'}`} />
+        <motion.div
+          className="co-stripe absolute left-0 top-0 h-full"
+          animate={{ width: `${progress}%` }}
+          transition={{ type: 'spring', stiffness: 120, damping: 22 }}
+        />
+      </div>
+
+      {/* Slides */}
+      <AnimatePresence custom={dir} mode="popLayout" initial={false}>
+        <motion.div
+          key={cur.id}
+          custom={dir}
+          variants={variants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{ x: { type: 'spring', stiffness: 90, damping: 18 }, opacity: { duration: 0.3 } }}
+          className="absolute inset-0"
+        >
+          <Comp />
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Flecha izquierda */}
+      <NavArrow
+        side="left"
+        light={light}
+        disabled={index === 0}
+        onClick={prev}
+      />
+      {/* Flecha derecha */}
+      <NavArrow
+        side="right"
+        light={light}
+        disabled={index === total - 1}
+        onClick={next}
+        pulse={index === 0}
+      />
+
+      {/* Barra inferior: contador · dots · siguiente */}
+      <div className="absolute inset-x-0 bottom-0 z-40 flex items-center justify-between gap-3 px-4 pb-[max(12px,env(safe-area-inset-bottom))] pt-3 sm:px-8">
+        <span
+          className={`shrink-0 font-black tabular-nums tracking-wider ${
+            light ? 'text-co-navy/70' : 'text-white/70'
+          }`}
+        >
+          {String(index + 1).padStart(2, '0')}
+          <span className={light ? 'text-co-navy/35' : 'text-white/35'}> / {String(total).padStart(2, '0')}</span>
+        </span>
+
+        <div className="flex flex-1 items-center justify-center gap-1.5 overflow-x-auto px-1">
+          {SLIDES.map((s, i) => (
+            <button
+              key={s.id}
+              onClick={() => go(i)}
+              aria-label={`Ir a slide ${i + 1}: ${s.label}`}
+              className="group relative shrink-0 py-2"
+            >
+              <span
+                className={`block rounded-full transition-all duration-300 ${
+                  i === index
+                    ? 'h-2.5 w-7 bg-co-yellow'
+                    : `h-2.5 w-2.5 ${light ? 'bg-co-navy/25 hover:bg-co-navy/50' : 'bg-white/30 hover:bg-white/60'}`
+                }`}
+              />
+            </button>
+          ))}
         </div>
 
-        <div className="mt-4 card p-4">
-          <div className="font-display font-extrabold text-slate-800">Reiniciar progreso</div>
-          <p className="mt-1 text-sm font-semibold text-slate-500">
-            Borra XP, vidas, racha, dominio y errores guardados. No se puede deshacer.
-          </p>
-          {!confirm ? (
-            <Btn color="red" className="mt-3" onClick={() => setConfirm(true)}>
-              Reiniciar todo
-            </Btn>
-          ) : (
-            <div className="mt-3 flex gap-2">
-              <Btn color="red" onClick={() => { game.resetAll(); go('home') }}>
-                Sí, borrar
-              </Btn>
-              <button onClick={() => setConfirm(false)} className="px-4 font-bold text-slate-500">
-                Cancelar
-              </button>
-            </div>
-          )}
-        </div>
-
-        <p className="mt-6 text-center text-xs font-medium text-slate-500">
-          RRHH Quest · Todo el contenido proviene exclusivamente de tu guía de estudio (Módulos 6 a 11).
-          Sin teoría externa. Hecho para tu oral del viernes. 💪
-        </p>
+        <button
+          onClick={next}
+          disabled={index === total - 1}
+          className={`hidden shrink-0 items-center gap-2 rounded-full px-4 py-2 text-sm font-extrabold transition disabled:opacity-0 sm:inline-flex ${
+            light
+              ? 'bg-co-navy text-white hover:bg-co-blue'
+              : 'bg-co-yellow text-co-navy hover:brightness-105'
+          }`}
+        >
+          Siguiente
+          <span className="animate-bounce-x">→</span>
+        </button>
       </div>
     </div>
   )
 }
 
-function Row({ label, children }) {
-  return (
-    <div className="flex items-center justify-between p-4">
-      <span className="font-bold text-slate-700">{label}</span>
-      {children}
-    </div>
-  )
-}
-
-function Toggle({ on, onClick }) {
+function NavArrow({ side, onClick, disabled, light, pulse }) {
   return (
     <button
       onClick={onClick}
-      className={`relative h-7 w-12 rounded-full transition-colors ${on ? 'bg-emerald-500' : 'bg-slate-300'}`}
+      disabled={disabled}
+      aria-label={side === 'left' ? 'Slide anterior' : 'Slide siguiente'}
+      className={`absolute top-1/2 z-40 -translate-y-1/2 ${
+        side === 'left' ? 'left-2 sm:left-4' : 'right-2 sm:right-4'
+      } grid h-11 w-11 place-items-center rounded-full border backdrop-blur-md transition disabled:pointer-events-none disabled:opacity-0 sm:h-12 sm:w-12 ${
+        light
+          ? 'border-co-navy/15 bg-white/70 text-co-navy hover:bg-white'
+          : 'border-white/15 bg-white/10 text-white hover:bg-white/20'
+      } ${pulse ? 'ring-2 ring-co-yellow/70' : ''}`}
     >
-      <span className={`absolute top-0.5 h-6 w-6 rounded-full bg-white shadow transition-all ${on ? 'left-[1.4rem]' : 'left-0.5'}`} />
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+        {side === 'left' ? <polyline points="15 18 9 12 15 6" /> : <polyline points="9 18 15 12 9 6" />}
+      </svg>
     </button>
   )
 }

@@ -1,10 +1,10 @@
 name: Deploy a GitHub Pages
 
-# Publica el juego automáticamente cada vez que se actualiza la branch.
+# Publica la presentación automáticamente cada vez que se actualiza la branch.
 on:
   push:
     branches:
-      - claude/dazzling-tesla-XgMar
+      - claude/colombia-brand-presentation-0kv7r8
   workflow_dispatch:
 
 # Permisos que necesita la deploy de Pages

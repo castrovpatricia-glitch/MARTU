@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 html,
@@ -12,62 +12,79 @@ body,
   height: 100%;
 }
 
-body {
-  margin: 0;
-  font-family: 'Nunito', ui-sans-serif, system-ui, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: #0b1020;
-  overscroll-behavior-y: none;
+* {
+  box-sizing: border-box;
 }
 
-/* Custom scrollbar */
+body {
+  margin: 0;
+  font-family: 'Montserrat', ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #0b1a4a;
+  color: #fff;
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* La unidad de pantalla completa que respeta las barras del navegador móvil */
+.h-screen-safe {
+  height: 100vh;
+  height: 100dvh;
+}
+
+/* Scrollbar discreta */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 99px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
-::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.5);
-  border-radius: 999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.8);
-}
 
 @layer components {
-  .font-display {
-    font-family: 'Baloo 2', 'Nunito', ui-sans-serif, system-ui;
+  /* Contenedor sólido de color, recurso clave del manual */
+  .slab {
+    @apply inline-block rounded-md px-3 py-1 font-extrabold leading-tight;
   }
-
-  /* Chunky "duolingo style" button with a bottom shadow that depresses on click */
-  .btn-3d {
-    @apply relative inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 font-extrabold tracking-wide text-white transition-all duration-100 active:translate-y-[3px];
-    box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.22);
-  }
-  .btn-3d:active {
-    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.22);
-  }
-  .btn-3d:disabled {
-    @apply cursor-not-allowed opacity-60;
-  }
-
   .card {
-    @apply rounded-3xl bg-white shadow-xl ring-1 ring-black/5;
+    @apply rounded-2xl border border-white/10 bg-white/[0.06] backdrop-blur-sm shadow-slab;
   }
-
-  .glass {
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+  .kicker {
+    @apply inline-flex items-center gap-2 text-xs sm:text-sm font-extrabold uppercase tracking-[0.2em];
   }
 }
 
-/* Hide number input spinners */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .title-tight {
+    letter-spacing: -0.02em;
+    line-height: 0.95;
+  }
+  /* Franja tricolor / arcoíris de marca */
+  .co-stripe {
+    background: linear-gradient(
+      90deg,
+      #1b2fe0 0%,
+      #00b5e2 18%,
+      #46c93a 38%,
+      #ffd200 58%,
+      #ff7a00 76%,
+      #e4002b 88%,
+      #7b2ff7 100%
+    );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -1,118 +1,96 @@
 import { motion } from 'framer-motion'
-import { MAX_LIVES } from '../hooks/useGameState'
 
-// --- Botón "3D" estilo Duolingo --------------------------------------------
-export function Btn({ children, color = 'brand', className = '', ...props }) {
-  const colors = {
-    brand: 'bg-brand-500',
-    green: 'bg-emerald-500',
-    red: 'bg-rose-500',
-    amber: 'bg-amber-500',
-    violet: 'bg-violet-500',
-    slate: 'bg-slate-700',
-    white: 'bg-white !text-slate-800',
-  }
+/* ───────────────────────── Logo CO Marca País ─────────────────────────
+   Reconstrucción del identificador "CO" del manual: tile redondeado con
+   bloques de color superpuestos y el monograma CO en blanco. */
+export function LogoCO({ size = 96, withWord = true, className = '' }) {
+  const r = size * 0.22
   return (
-    <button className={`btn-3d ${colors[color] || colors.brand} ${className}`} {...props}>
-      {children}
-    </button>
-  )
-}
-
-// --- Barra de progreso ------------------------------------------------------
-export function ProgressBar({ value = 0, className = '', barClass = 'bg-emerald-400', height = 'h-3' }) {
-  return (
-    <div className={`w-full ${height} rounded-full bg-black/10 overflow-hidden ${className}`}>
-      <motion.div
-        className={`h-full rounded-full ${barClass}`}
-        initial={{ width: 0 }}
-        animate={{ width: `${Math.max(0, Math.min(100, value))}%` }}
-        transition={{ type: 'spring', stiffness: 120, damping: 20 }}
-      />
-    </div>
-  )
-}
-
-// --- Corazones (vidas) ------------------------------------------------------
-export function Hearts({ lives, max = MAX_LIVES }) {
-  return (
-    <div className="flex items-center gap-0.5">
-      {Array.from({ length: max }).map((_, i) => (
-        <span key={i} className={`text-lg leading-none ${i < lives ? '' : 'grayscale opacity-30'}`}>
-          {i < lives ? '❤️' : '🤍'}
+    <div className={`inline-flex flex-col items-center ${className}`} style={{ width: size }}>
+      <svg
+        width={size}
+        height={size}
+        viewBox="0 0 100 100"
+        role="img"
+        aria-label="Logo Marca País Colombia"
+      >
+        <defs>
+          <clipPath id="coClip">
+            <rect x="0" y="0" width="100" height="100" rx={r / (size / 100)} />
+          </clipPath>
+        </defs>
+        <g clipPath="url(#coClip)">
+          <rect width="100" height="100" fill="#0b1a4a" />
+          {/* bloques de color de la paleta */}
+          <circle cx="22" cy="20" r="30" fill="#ffd200" opacity="0.95" />
+          <circle cx="70" cy="16" r="26" fill="#e4002b" opacity="0.92" />
+          <circle cx="86" cy="58" r="30" fill="#7b2ff7" opacity="0.9" />
+          <circle cx="60" cy="86" r="30" fill="#00b5e2" opacity="0.9" />
+          <circle cx="16" cy="74" r="26" fill="#46c93a" opacity="0.92" />
+          <circle cx="50" cy="50" r="20" fill="#ff7a00" opacity="0.55" />
+        </g>
+        <text
+          x="50"
+          y="62"
+          textAnchor="middle"
+          fontFamily="Montserrat, Arial, sans-serif"
+          fontWeight="900"
+          fontSize="42"
+          fill="#fff"
+          style={{ letterSpacing: '-1px' }}
+        >
+          CO
+        </text>
+      </svg>
+      {withWord && (
+        <span
+          className="mt-1 font-black uppercase tracking-[0.35em] text-white"
+          style={{ fontSize: size * 0.13 }}
+        >
+          Colombia
         </span>
-      ))}
+      )}
     </div>
   )
 }
 
-// --- Chip / etiqueta --------------------------------------------------------
-export function Pill({ children, className = '' }) {
+/* Etiqueta superior de cada slide */
+export function Kicker({ children, color = 'text-co-yellow', className = '' }) {
   return (
-    <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold ${className}`}>
+    <span className={`kicker ${color} ${className}`}>
+      <span className="h-2 w-2 rounded-full bg-current" />
       {children}
     </span>
   )
 }
 
-// --- Barra superior con stats ----------------------------------------------
-export function TopBar({ game, onClose, title, accent = 'bg-white/10' }) {
-  const { state, xpLevel } = game
+/* Contenedor sólido de color con texto (recurso del manual) */
+export function Slab({ children, color = 'bg-co-yellow', text = 'text-co-navy', className = '' }) {
+  return <span className={`slab ${color} ${text} ${className}`}>{children}</span>
+}
+
+/* Animación de entrada escalonada para listas de tarjetas */
+export const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.09, delayChildren: 0.15 } },
+}
+export const item = {
+  hidden: { opacity: 0, y: 26 },
+  show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 120, damping: 16 } },
+}
+
+export function Reveal({ children, className = '', delay = 0 }) {
   return (
-    <div className="sticky top-0 z-30 w-full">
-      <div className="mx-auto flex max-w-3xl items-center gap-3 px-4 py-3">
-        {onClose ? (
-          <button
-            onClick={onClose}
-            className="grid h-9 w-9 place-items-center rounded-full bg-white/10 text-white hover:bg-white/20"
-            aria-label="Volver"
-          >
-            ✕
-          </button>
-        ) : (
-          <div className="font-display text-lg font-extrabold text-white">RRHH Quest 🎓</div>
-        )}
-        {title && <div className="flex-1 truncate text-center font-display font-bold text-white">{title}</div>}
-        {!title && <div className="flex-1" />}
-        <div className="flex items-center gap-2 text-white">
-          <Pill className="bg-amber-400/90 text-amber-950">⭐ Nv {xpLevel}</Pill>
-          <Pill className="bg-orange-500/90 text-white">🔥 {state.streak.count}</Pill>
-          <Hearts lives={state.lives} />
-        </div>
-      </div>
-    </div>
+    <motion.div
+      variants={item}
+      initial="hidden"
+      animate="show"
+      transition={{ delay }}
+      className={className}
+    >
+      {children}
+    </motion.div>
   )
 }
 
-// --- Anillo de dominio (circular) ------------------------------------------
-export function MasteryRing({ value = 0, size = 56, stroke = 6, color = '#34d399', label }) {
-  const r = (size - stroke) / 2
-  const c = 2 * Math.PI * r
-  const off = c - (value / 100) * c
-  return (
-    <div className="relative grid place-items-center" style={{ width: size, height: size }}>
-      <svg width={size} height={size} className="-rotate-90">
-        <circle cx={size / 2} cy={size / 2} r={r} stroke="rgba(0,0,0,0.12)" strokeWidth={stroke} fill="none" />
-        <motion.circle
-          cx={size / 2}
-          cy={size / 2}
-          r={r}
-          stroke={color}
-          strokeWidth={stroke}
-          fill="none"
-          strokeLinecap="round"
-          strokeDasharray={c}
-          initial={{ strokeDashoffset: c }}
-          animate={{ strokeDashoffset: off }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-        />
-      </svg>
-      <span className="absolute text-xs font-extrabold text-slate-700">{label ?? `${value}%`}</span>
-    </div>
-  )
-}
-
-// --- Tarjeta contenedora ----------------------------------------------------
-export function Card({ children, className = '' }) {
-  return <div className={`card p-5 ${className}`}>{children}</div>
-}
+export const MList = motion.div

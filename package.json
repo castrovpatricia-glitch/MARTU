@@ -1,17 +1,15 @@
 {
-  "name": "rrhh-quest",
+  "name": "colombia-y-todavia-no-viste-nada",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "RRHH Quest - Juego de estudio para el parcial oral de Recursos Humanos (Módulos 6 a 11)",
+  "description": "Presentación interactiva — Marca País Colombia · Campaña \"Y todavía no viste nada\" · Imagen Empresaria I · Martina Castro",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview --host",
-    "test": "node test/run.mjs"
+    "preview": "vite preview --host"
   },
   "dependencies": {
-    "canvas-confetti": "^1.9.3",
     "framer-motion": "^11.3.19",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
