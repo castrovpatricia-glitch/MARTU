@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import Slide from '../components/Slide.jsx'
-import { LogoCO, item } from '../components/ui.jsx'
+import { LogoCO, CircleCluster, DotGrid, item } from '../components/ui.jsx'
 
 export default function S01Portada() {
   return (
@@ -9,6 +9,11 @@ export default function S01Portada() {
       <Blob className="-left-24 -top-24 bg-co-violet/30" />
       <Blob className="-bottom-28 -right-20 bg-co-sky/25" />
       <Blob className="bottom-10 left-1/4 h-44 w-44 bg-co-yellow/20" />
+      {/* Recursos gráficos de marca */}
+      <CircleCluster className="-right-10 -top-10 h-64 w-64" opacity={0.35} />
+      <CircleCluster className="-bottom-16 -left-12 h-56 w-56" opacity={0.25} />
+      <DotGrid className="right-6 bottom-6 hidden opacity-70 md:block" rows={4} cols={6} />
+      <DotGrid className="left-6 top-6 hidden opacity-70 md:block" rows={4} cols={4} />
 
       <div className="flex flex-col items-center text-center">
         <motion.div variants={item}>

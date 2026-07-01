@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import Slide from '../components/Slide.jsx'
-import { Kicker, LogoCO, item, stagger } from '../components/ui.jsx'
+import { Kicker, LogoCO, CircleCluster, DotGrid, item, stagger } from '../components/ui.jsx'
 
 const PALETTE = ['bg-co-blue', 'bg-co-sky', 'bg-co-green', 'bg-co-yellow', 'bg-co-orange', 'bg-co-red', 'bg-co-violet']
 
@@ -34,6 +34,8 @@ const CARDS = [
 export default function S03Identidad() {
   return (
     <Slide bg="navy">
+      <CircleCluster className="-right-8 -top-12 h-64 w-64" opacity={0.3} />
+      <DotGrid className="right-6 bottom-8 hidden opacity-70 md:block" rows={5} cols={5} />
       <motion.div variants={item}>
         <Kicker color="text-co-sky">Identidad visual</Kicker>
       </motion.div>

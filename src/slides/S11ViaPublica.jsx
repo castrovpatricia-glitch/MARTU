@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion'
 import Slide from '../components/Slide.jsx'
-import { Kicker, LogoCO, item, stagger } from '../components/ui.jsx'
-import dHit from '../assets/dupla-hit.jpg'
+import { Kicker, DotGrid, item, stagger } from '../components/ui.jsx'
+import oohAeropuerto from '../assets/ooh-aeropuerto.jpg'
+import oohShopping from '../assets/ooh-shopping.jpg'
 
 const PLACES = [
   { t: 'Aeropuertos', e: '✈️', c: 'bg-co-sky' },
@@ -10,71 +11,75 @@ const PLACES = [
   { t: 'Alto tránsito internacional', e: '🌎', c: 'bg-co-green' },
 ]
 
+const MOCKUPS = [
+  { src: oohAeropuerto, t: 'Aeropuerto', d: 'El Dorado', c: 'bg-co-sky' },
+  { src: oohShopping, t: 'Shopping', d: 'Retail premium', c: 'bg-co-violet' },
+]
+
 export default function S11ViaPublica() {
   return (
-    <Slide bg="white">
-      <div className="grid items-center gap-10 md:grid-cols-2 md:gap-12">
+    <Slide bg="white" contentClassName="max-w-6xl">
+      <DotGrid className="right-4 top-4 hidden sm:block" rows={4} cols={5} opacity={0.9} />
+
+      <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
         <div>
           <motion.div variants={item}>
             <Kicker color="text-co-blue">Vía pública</Kicker>
           </motion.div>
           <motion.h2
             variants={item}
-            className="title-tight mt-4 font-black text-co-navy"
-            style={{ fontSize: 'clamp(1.9rem, 5.2vw, 3.4rem)' }}
+            className="title-tight mt-3 font-black text-co-navy"
+            style={{ fontSize: 'clamp(1.8rem, 5vw, 3.2rem)' }}
           >
             Del mundo digital al{' '}
             <span className="text-co-blue">espacio público</span>
           </motion.h2>
-          <motion.p variants={item} className="mt-4 max-w-sm text-base font-semibold text-co-navy/60">
+          <motion.p variants={item} className="mt-3 max-w-md text-base font-semibold text-co-navy/60">
             La campaña también vive fuera de las redes.
           </motion.p>
-
-          <motion.div variants={stagger} className="mt-7 grid grid-cols-2 gap-3">
-            {PLACES.map((p) => (
-              <motion.div
-                key={p.t}
-                variants={item}
-                className="flex items-center gap-3 rounded-xl border border-co-navy/10 bg-white p-3 shadow-slab"
-              >
-                <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-lg ${p.c} text-lg`}>
-                  {p.e}
-                </span>
-                <span className="text-sm font-extrabold leading-tight text-co-navy">{p.t}</span>
-              </motion.div>
-            ))}
-          </motion.div>
         </div>
 
-        {/* Mockups de vía pública */}
-        <motion.div variants={item} className="relative mx-auto w-full max-w-md">
-          {/* Pantalla horizontal tipo aeropuerto */}
-          <div className="overflow-hidden rounded-xl border-4 border-co-navy/90 shadow-slab">
-            <img src={dHit} alt="Pieza en pantalla de aeropuerto" className="w-full" style={{ aspectRatio: '16/9', objectFit: 'cover' }} />
-          </div>
-          <div className="mx-auto h-7 w-2 bg-co-navy/80" />
-          <div className="mx-auto h-2 w-28 rounded-full bg-co-navy/30" />
-          <p className="mt-1 text-center text-[11px] font-bold uppercase tracking-widest text-co-navy/45">
-            Aeropuerto Internacional El Dorado
-          </p>
-
-          {/* Tótem vertical urbano */}
-          <motion.div
-            initial={{ opacity: 0, y: 20, rotate: -3 }}
-            animate={{ opacity: 1, y: 0, rotate: -3 }}
-            transition={{ delay: 0.5, type: 'spring', stiffness: 120, damping: 14 }}
-            className="absolute -right-2 -top-6 w-28 rotate-[-3deg] sm:-right-6 sm:w-32"
-          >
-            <div className="flex aspect-[9/16] flex-col items-center justify-between rounded-lg border-4 border-co-navy/90 bg-co-navy p-3 text-center shadow-slab">
-              <LogoCO size={34} withWord={false} />
-              <p className="text-[13px] font-black leading-tight text-white">
-                Y todavía no viste nada
-              </p>
-              <span className="h-1.5 w-10 rounded-full co-stripe" />
-            </div>
-          </motion.div>
+        {/* Chips de puntos de contacto */}
+        <motion.div variants={stagger} className="grid grid-cols-2 gap-2.5">
+          {PLACES.map((p) => (
+            <motion.div
+              key={p.t}
+              variants={item}
+              className="flex items-center gap-2.5 rounded-xl border border-co-navy/10 bg-white px-3 py-2 shadow-slab"
+            >
+              <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-lg ${p.c} text-base`}>
+                {p.e}
+              </span>
+              <span className="text-xs font-extrabold leading-tight text-co-navy sm:text-sm">{p.t}</span>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
+
+      {/* Mockups reales de vía pública */}
+      <motion.div variants={stagger} className="mt-7 grid grid-cols-2 gap-3 sm:gap-5">
+        {MOCKUPS.map((m) => (
+          <motion.figure
+            key={m.t}
+            variants={item}
+            whileHover={{ y: -5 }}
+            className="group relative overflow-hidden rounded-2xl border border-co-navy/10 shadow-slab"
+          >
+            <img
+              src={m.src}
+              alt={`Pieza de campaña en ${m.t}`}
+              className="w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+              style={{ aspectRatio: '4 / 3' }}
+            />
+            <figcaption className="absolute left-3 top-3 flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 backdrop-blur">
+              <span className={`h-2 w-2 rounded-full ${m.c}`} />
+              <span className="text-[11px] font-black uppercase tracking-wide text-co-navy sm:text-xs">
+                {m.t}
+              </span>
+            </figcaption>
+          </motion.figure>
+        ))}
+      </motion.div>
     </Slide>
   )
 }

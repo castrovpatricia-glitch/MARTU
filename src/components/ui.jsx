@@ -1,56 +1,32 @@
 import { motion } from 'framer-motion'
+import logoCo from '../assets/logo-co.png'
 
 /* ───────────────────────── Logo CO Marca País ─────────────────────────
-   Reconstrucción del identificador "CO" del manual: tile redondeado con
-   bloques de color superpuestos y el monograma CO en blanco. */
-export function LogoCO({ size = 96, withWord = true, className = '' }) {
-  const r = size * 0.22
+   Logo oficial de Marca País Colombia. En fondos oscuros se apoya sobre
+   una placa blanca (área de reserva), como indica el manual de marca. */
+export function LogoCO({ size = 96, plate = true, className = '' }) {
+  const img = (
+    <img
+      src={logoCo}
+      alt="Marca País Colombia"
+      className="block h-auto w-full select-none"
+      draggable="false"
+    />
+  )
+  if (!plate) {
+    return (
+      <span className={`inline-block ${className}`} style={{ width: size }}>
+        {img}
+      </span>
+    )
+  }
   return (
-    <div className={`inline-flex flex-col items-center ${className}`} style={{ width: size }}>
-      <svg
-        width={size}
-        height={size}
-        viewBox="0 0 100 100"
-        role="img"
-        aria-label="Logo Marca País Colombia"
-      >
-        <defs>
-          <clipPath id="coClip">
-            <rect x="0" y="0" width="100" height="100" rx={r / (size / 100)} />
-          </clipPath>
-        </defs>
-        <g clipPath="url(#coClip)">
-          <rect width="100" height="100" fill="#0b1a4a" />
-          {/* bloques de color de la paleta */}
-          <circle cx="22" cy="20" r="30" fill="#ffd200" opacity="0.95" />
-          <circle cx="70" cy="16" r="26" fill="#e4002b" opacity="0.92" />
-          <circle cx="86" cy="58" r="30" fill="#7b2ff7" opacity="0.9" />
-          <circle cx="60" cy="86" r="30" fill="#00b5e2" opacity="0.9" />
-          <circle cx="16" cy="74" r="26" fill="#46c93a" opacity="0.92" />
-          <circle cx="50" cy="50" r="20" fill="#ff7a00" opacity="0.55" />
-        </g>
-        <text
-          x="50"
-          y="62"
-          textAnchor="middle"
-          fontFamily="Montserrat, Arial, sans-serif"
-          fontWeight="900"
-          fontSize="42"
-          fill="#fff"
-          style={{ letterSpacing: '-1px' }}
-        >
-          CO
-        </text>
-      </svg>
-      {withWord && (
-        <span
-          className="mt-1 font-black uppercase tracking-[0.35em] text-white"
-          style={{ fontSize: size * 0.13 }}
-        >
-          Colombia
-        </span>
-      )}
-    </div>
+    <span
+      className={`inline-block rounded-[22%] bg-white shadow-slab ${className}`}
+      style={{ width: size, padding: size * 0.1 }}
+    >
+      {img}
+    </span>
   )
 }
 
@@ -67,6 +43,67 @@ export function Kicker({ children, color = 'text-co-yellow', className = '' }) {
 /* Contenedor sólido de color con texto (recurso del manual) */
 export function Slab({ children, color = 'bg-co-yellow', text = 'text-co-navy', className = '' }) {
   return <span className={`slab ${color} ${text} ${className}`}>{children}</span>
+}
+
+/* ─────────────────────── Recursos gráficos de marca ───────────────────────
+   Círculos superpiestos (la construcción del sistema CO) y grillas de puntos
+   de la paleta, para decorar sin agregar texto. */
+
+const PALETTE = ['#1b2fe0', '#00b5e2', '#46c93a', '#ffd200', '#ff7a00', '#e4002b', '#7b2ff7']
+
+// Racimo de círculos translúcidos que evoca el logo CO
+export function CircleCluster({ className = '', scale = 1, opacity = 0.5 }) {
+  const c = [
+    { x: 20, y: 22, r: 34, f: '#ffd200' },
+    { x: 70, y: 18, r: 28, f: '#1b2fe0' },
+    { x: 82, y: 62, r: 32, f: '#46c93a' },
+    { x: 34, y: 74, r: 30, f: '#e6007e' },
+    { x: 58, y: 52, r: 22, f: '#ff7a00' },
+  ]
+  return (
+    <svg
+      viewBox="0 0 100 100"
+      className={`pointer-events-none absolute ${className}`}
+      style={{ transform: `scale(${scale})`, opacity }}
+      aria-hidden="true"
+    >
+      {c.map((o, i) => (
+        <circle key={i} cx={o.x} cy={o.y} r={o.r} fill={o.f} style={{ mixBlendMode: 'screen' }} />
+      ))}
+    </svg>
+  )
+}
+
+// Grilla de puntos de la paleta (esquinas / acentos)
+export function DotGrid({ className = '', rows = 4, cols = 6, gap = 15, r = 3.4, mono, opacity = 1 }) {
+  const dots = []
+  for (let y = 0; y < rows; y++)
+    for (let x = 0; x < cols; x++)
+      dots.push(
+        <circle
+          key={`${x}-${y}`}
+          cx={x * gap + r}
+          cy={y * gap + r}
+          r={r}
+          fill={mono || PALETTE[(x + y) % PALETTE.length]}
+        />,
+      )
+  return (
+    <svg
+      width={cols * gap}
+      height={rows * gap}
+      className={`pointer-events-none absolute ${className}`}
+      style={{ opacity }}
+      aria-hidden="true"
+    >
+      {dots}
+    </svg>
+  )
+}
+
+// Blob difuso de color
+export function Blob({ className = '' }) {
+  return <div className={`pointer-events-none absolute h-72 w-72 rounded-full blur-3xl ${className}`} />
 }
 
 /* Animación de entrada escalonada para listas de tarjetas */

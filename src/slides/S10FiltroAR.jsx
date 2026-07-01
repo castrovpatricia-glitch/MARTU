@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import Slide from '../components/Slide.jsx'
-import { Kicker, item, stagger } from '../components/ui.jsx'
+import { Kicker, CircleCluster, DotGrid, item, stagger } from '../components/ui.jsx'
 import eAr from '../assets/eco-ar.jpg'
 
 const POINTS = [
@@ -12,6 +12,8 @@ const POINTS = [
 export default function S10FiltroAR() {
   return (
     <Slide bg="navy">
+      <CircleCluster className="-right-8 -top-10 h-56 w-56" opacity={0.28} />
+      <DotGrid className="right-6 bottom-8 hidden opacity-70 md:block" rows={4} cols={5} />
       <div className="grid items-center gap-9 md:grid-cols-[0.85fr_1.15fr] md:gap-12">
         {/* Mockup */}
         <motion.div

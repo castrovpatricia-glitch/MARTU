@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import Slide from '../components/Slide.jsx'
-import { Kicker, item, stagger } from '../components/ui.jsx'
+import { Kicker, DotGrid, item, stagger } from '../components/ui.jsx'
 
 const ATTRS = [
   { t: 'Gastronomía', e: '🍽️', c: 'bg-co-orange' },
@@ -14,6 +14,7 @@ const ATTRS = [
 export default function S04Atributos() {
   return (
     <Slide bg="white">
+      <DotGrid className="right-3 top-3 hidden opacity-80 sm:block" rows={4} cols={6} />
       <motion.div variants={item}>
         <Kicker color="text-co-red">Atributos de identidad</Kicker>
       </motion.div>

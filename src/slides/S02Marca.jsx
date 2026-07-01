@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import Slide from '../components/Slide.jsx'
-import { LogoCO, Kicker, item } from '../components/ui.jsx'
+import { LogoCO, Kicker, DotGrid, item } from '../components/ui.jsx'
 
 const ORBIT = [
   { label: 'Turismo', color: 'bg-co-sky text-white', pos: 'left-0 top-2 sm:-left-6' },
@@ -12,6 +12,7 @@ const ORBIT = [
 export default function S02Marca() {
   return (
     <Slide bg="white">
+      <DotGrid className="bottom-2 left-2 hidden opacity-80 sm:block" rows={4} cols={5} />
       <div className="grid items-center gap-10 md:grid-cols-2 md:gap-14">
         <div>
           <motion.div variants={item}>
@@ -39,7 +40,7 @@ export default function S02Marca() {
           <div className="absolute inset-6 rounded-full border-2 border-dashed border-co-navy/15" />
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
             <div className="animate-float">
-              <LogoCO size={150} withWord={false} />
+              <LogoCO size={168} plate={false} />
             </div>
           </div>
           {ORBIT.map((o, i) => (

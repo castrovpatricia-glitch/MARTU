@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import Slide from '../components/Slide.jsx'
-import { Kicker, item, stagger } from '../components/ui.jsx'
+import { Kicker, CircleCluster, DotGrid, item, stagger } from '../components/ui.jsx'
 
 const STATIONS = [
   { t: 'Café', e: '☕', know: 'Conocés el café', unlock: 'Desbloqueás lo que despierta: el origen y el Eje Cafetero.', c: 'co-red', dot: 'bg-co-red' },
@@ -17,6 +17,8 @@ export default function S12Activacion() {
   const s = STATIONS[sel]
   return (
     <Slide bg="navy" contentClassName="max-w-5xl">
+      <CircleCluster className="-right-8 -top-10 h-56 w-56" opacity={0.26} />
+      <DotGrid className="left-2 bottom-2 hidden opacity-70 md:block" rows={4} cols={5} />
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <motion.div variants={item}>

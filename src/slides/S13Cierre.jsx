@@ -1,12 +1,16 @@
 import { motion } from 'framer-motion'
 import Slide from '../components/Slide.jsx'
-import { LogoCO, item } from '../components/ui.jsx'
+import { LogoCO, CircleCluster, DotGrid, item } from '../components/ui.jsx'
 
 export default function S13Cierre() {
   return (
     <Slide bg="navy">
       <Blob className="-left-24 top-10 bg-co-violet/25" />
       <Blob className="-right-20 bottom-0 bg-co-green/20" />
+      <CircleCluster className="-left-10 -top-8 h-60 w-60" opacity={0.28} />
+      <CircleCluster className="-bottom-12 -right-8 h-60 w-60" opacity={0.28} />
+      <DotGrid className="left-6 bottom-8 hidden opacity-70 md:block" rows={4} cols={5} />
+      <DotGrid className="right-6 top-8 hidden opacity-70 md:block" rows={4} cols={5} />
 
       <div className="flex flex-col items-center text-center">
         <motion.div variants={item}>
