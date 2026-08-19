@@ -76,7 +76,7 @@ export default function HistorialPage() {
                   {metric.label}
                 </td>
                 {rows.map((r) => (
-                  <td key={r.monthId} className="text-center font-display text-base sm:text-lg py-3 px-2 border-t border-ink/10/10">
+                  <td key={r.monthId} className="text-center font-display text-base sm:text-lg py-3 px-2 border-t border-ink/10">
                     {metric.get(r)}
                   </td>
                 ))}

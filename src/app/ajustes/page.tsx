@@ -17,6 +17,9 @@ import {
 import { buildFullBackup, downloadJson, exportTransactionsCsv, restoreFromBackup, type FullBackup } from "@/lib/exportImport";
 import { useTransactions } from "@/lib/hooks";
 import { toMajor, toMinor } from "@/lib/format";
+import { isCloudEnabled, supabase } from "@/lib/supabase";
+import { pushToCloud } from "@/lib/sync";
+import { useAuthStore } from "@/store/authStore";
 import PageHeader from "@/components/ds/PageHeader";
 import Field from "@/components/ds/Field";
 import Input from "@/components/ds/Input";
@@ -97,6 +100,8 @@ export default function AjustesPage() {
   return (
     <div className="pb-16">
       <PageHeader eyebrow="Todo lo demás" title="Ajustes" subtitle="the fine print" />
+
+      {isCloudEnabled && <AccountSection />}
 
       <SectionBlock title="General">
         <div className="grid sm:grid-cols-2 gap-4">
@@ -238,6 +243,47 @@ export default function AjustesPage() {
         onCancel={() => setConfirmReset(false)}
       />
     </div>
+  );
+}
+
+function AccountSection() {
+  const session = useAuthStore((s) => s.session);
+  const syncing = useAuthStore((s) => s.syncing);
+  const lastSyncedAt = useAuthStore((s) => s.lastSyncedAt);
+  const [manualSyncing, setManualSyncing] = useState(false);
+
+  async function syncNow() {
+    if (!session?.user) return;
+    setManualSyncing(true);
+    await pushToCloud(session.user.id);
+    setManualSyncing(false);
+  }
+
+  async function signOut() {
+    await supabase?.auth.signOut();
+  }
+
+  return (
+    <SectionBlock title="Cuenta">
+      <div className="flex flex-col gap-3">
+        <p className="font-mono text-sm">{session?.user?.email}</p>
+        <p className="font-mono text-[11px] opacity-60">
+          {syncing || manualSyncing
+            ? "Sincronizando…"
+            : lastSyncedAt
+            ? `Última sincronización: ${new Date(lastSyncedAt).toLocaleTimeString("es-AR")}`
+            : "Se sincroniza automáticamente cada 20 segundos."}
+        </p>
+        <div className="flex gap-2 flex-wrap">
+          <Button size="sm" variant="outline" onClick={syncNow} disabled={manualSyncing}>
+            Sincronizar ahora
+          </Button>
+          <Button size="sm" color="orange" onClick={signOut}>
+            Cerrar sesión
+          </Button>
+        </div>
+      </div>
+    </SectionBlock>
   );
 }
 
