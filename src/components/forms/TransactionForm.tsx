@@ -251,7 +251,7 @@ export default function TransactionForm({
       </button>
 
       {showMore && (
-        <div className="flex flex-col gap-4 border-t-2 border-ink/15 pt-4">
+        <div className="flex flex-col gap-4 border-t border-ink/10 pt-4">
           <Field label="Descripción">
             <Input
               value={description}
@@ -297,7 +297,7 @@ export default function TransactionForm({
           </Field>
 
           {(type === "expense" || type === "income") && !editId && (
-            <div className="flex flex-col gap-3 border-t-2 border-ink/15 pt-4">
+            <div className="flex flex-col gap-3 border-t border-ink/10 pt-4">
               <Toggle checked={isRecurring} onChange={setIsRecurring} label="¿Es recurrente?" />
               {isRecurring && (
                 <Field label="Frecuencia">

@@ -67,16 +67,16 @@ export default function MesPage() {
   }
 
   return (
-    <div className="pb-10">
+    <div className="pb-10 px-4 sm:px-6 pt-4 flex flex-col gap-4">
       <MonthSwitcher />
 
       {isClosed && (
-        <div className="bg-ink text-paper text-center font-mono text-xs uppercase tracking-widest py-1.5">
+        <div className="bg-ink text-paper text-center font-mono text-xs font-semibold rounded-full py-2">
           Mes cerrado
         </div>
       )}
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 border-b-2 border-ink">
+      <Block color="white" shadow="sm" padded={false} className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y divide-ink/8 overflow-hidden">
         <StatCell label="Total gastado" value={formatMoney(data.summary.expense, currency, locale)} />
         <StatCell label="Ingresos" value={formatMoney(data.summary.income, currency, locale)} />
         <StatCell label="Ahorro" value={formatMoney(data.summary.netSavings, currency, locale)} />
@@ -95,10 +95,10 @@ export default function MesPage() {
               : `${data.expenseChange <= 0 ? "" : "+"}${formatPercent(data.expenseChange)}`
           }
         />
-      </div>
+      </Block>
 
       {data.expenseChange !== undefined && data.prevSummary.expense > 0 && (
-        <Block color={data.expenseChange <= 0 ? "lime" : "pink"} shadow="none" className="border-0 border-b-2 border-ink">
+        <Block color={data.expenseChange <= 0 ? "lime" : "pink"} shadow="sm">
           <p className="font-hand text-2xl sm:text-3xl">
             {data.expenseChange <= 0
               ? `Gastaste ${formatPercent(Math.abs(data.expenseChange))} menos que el mes pasado.`
@@ -107,7 +107,7 @@ export default function MesPage() {
         </Block>
       )}
 
-      <section className="px-4 sm:px-6 py-5 border-b-2 border-ink">
+      <Block color="white" shadow="sm">
         <h2 className="font-hand text-3xl mb-3">Categorías del mes</h2>
         {data.ranking.length === 0 ? (
           <EmptyState icon="cart" title="Sin gastos categorizados este mes." />
@@ -126,15 +126,15 @@ export default function MesPage() {
             ))}
           </div>
         )}
-      </section>
+      </Block>
 
-      <section className="px-4 sm:px-6 py-5 border-b-2 border-ink">
+      <Block color="white" shadow="sm">
         <h2 className="font-hand text-3xl mb-3">Calendario de gastos</h2>
         <CalendarGrid days={data.calendar} firstWeekday={data.firstWeekday} currency={currency} locale={locale} max={maxCalendarDay} />
-      </section>
+      </Block>
 
       {isCurrent && (
-        <section className="px-4 sm:px-6 py-5 border-b-2 border-ink">
+        <Block color="white" shadow="sm">
           <div className="flex items-baseline justify-between mb-3">
             <h2 className="font-hand text-3xl">{data.week.label}</h2>
             {data.week.vsLastWeekPct !== undefined && (
@@ -144,17 +144,17 @@ export default function MesPage() {
               </span>
             )}
           </div>
-          <p className="font-display text-3xl mb-1">{formatMoney(data.week.total, currency, locale)}</p>
+          <p className="font-display font-bold text-3xl mb-1">{formatMoney(data.week.total, currency, locale)}</p>
           <p className="font-mono text-xs opacity-60 mb-4">
             Promedio diario: {formatMoney(Math.round(data.week.avgDaily), currency, locale)}
           </p>
           <WeekStrip week={data.week} />
-        </section>
+        </Block>
       )}
 
-      <section className="px-4 sm:px-6 py-5 border-b-2 border-ink grid sm:grid-cols-2 gap-5">
+      <div className="grid sm:grid-cols-2 gap-4">
         <Block color="blue" shadow="sm">
-          <p className="font-mono text-xs uppercase tracking-wider mb-1">Al ritmo actual</p>
+          <p className="font-mono text-xs font-semibold uppercase tracking-wider mb-1">Al ritmo actual</p>
           <p className="font-hand text-2xl mb-2">
             terminarías {monthTitle(monthId)} gastando
           </p>
@@ -162,7 +162,7 @@ export default function MesPage() {
         </Block>
 
         <Block color="cream" shadow="sm">
-          <p className="font-mono text-xs uppercase tracking-wider mb-3">Tu mes en 4 números</p>
+          <p className="font-mono text-xs font-semibold uppercase tracking-wider mb-3">Tu mes en 4 números</p>
           <div className="grid grid-cols-2 gap-3">
             <HealthNum label="Ahorrado" value={data.health.savedPct} color="text-lime" />
             <HealthNum label="Gastos fijos" value={data.health.fixedPct} />
@@ -170,9 +170,9 @@ export default function MesPage() {
             <HealthNum label="Disponible" value={data.health.availablePct} color="text-orange" />
           </div>
         </Block>
-      </section>
+      </div>
 
-      <section className="px-4 sm:px-6 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <Block color="white" shadow="sm" className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h2 className="font-hand text-3xl">Tu {monthTitle(monthId)}</h2>
           <p className="font-mono text-xs opacity-60 mt-1">
@@ -187,7 +187,7 @@ export default function MesPage() {
             Cerrar mes
           </Button>
         )}
-      </section>
+      </Block>
 
       <ConfirmDialog
         open={confirmClose}
@@ -210,9 +210,9 @@ function monthTitle(monthId: string) {
 
 function StatCell({ label, value }: { label: string; value: string }) {
   return (
-    <div className="px-4 sm:px-6 py-4 border-b-2 sm:border-b-0 border-r-2 border-ink [&:nth-child(2n)]:border-r-0 sm:[&:nth-child(2n)]:border-r-2 sm:[&:nth-child(4n)]:border-r-0">
-      <p className="font-mono text-[10px] uppercase tracking-wider opacity-60">{label}</p>
-      <p className="font-display text-xl sm:text-2xl mt-1 leading-tight">{value}</p>
+    <div className="px-4 sm:px-5 py-4">
+      <p className="font-mono text-[10px] font-semibold uppercase tracking-wider opacity-50">{label}</p>
+      <p className="font-display font-bold text-xl sm:text-2xl mt-1 leading-tight">{value}</p>
     </div>
   );
 }
@@ -220,8 +220,8 @@ function StatCell({ label, value }: { label: string; value: string }) {
 function HealthNum({ label, value, color = "text-ink" }: { label: string; value: number; color?: string }) {
   return (
     <div>
-      <p className={`font-display text-3xl ${color}`}>{formatPercent(Math.max(value, 0))}</p>
-      <p className="font-mono text-[10px] uppercase tracking-wide opacity-70">{label}</p>
+      <p className={`font-display font-bold text-3xl ${color}`}>{formatPercent(Math.max(value, 0))}</p>
+      <p className="font-mono text-[10px] font-semibold uppercase tracking-wide opacity-60">{label}</p>
     </div>
   );
 }

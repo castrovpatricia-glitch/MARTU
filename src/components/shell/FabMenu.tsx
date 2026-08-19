@@ -24,15 +24,15 @@ export default function FabMenu() {
           <button
             key={opt.kind}
             onClick={() => openQuickAdd(opt.kind)}
-            className="flex flex-col items-center gap-2 border-2 border-ink bg-white p-5 press-down shadow-hard-sm"
+            className="flex flex-col items-center gap-2 rounded-3xl bg-white p-5 press-down shadow-hard-sm"
           >
             <span
-              className="w-12 h-12 border-2 border-ink flex items-center justify-center"
+              className="w-12 h-12 rounded-full flex items-center justify-center"
               style={{ backgroundColor: `var(--color-${opt.color})` }}
             >
               <DoodleIcon name={opt.icon} />
             </span>
-            <span className="font-mono text-xs uppercase tracking-wide font-bold">{opt.label}</span>
+            <span className="font-mono text-xs font-bold">{opt.label}</span>
           </button>
         ))}
       </div>

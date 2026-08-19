@@ -1,7 +1,18 @@
 import { db } from "./db";
 import { CURRENT_SCHEMA_VERSION } from "./types";
 import { formatMoney } from "./format";
-import type { Account, Category, CreditCard, MonthRecord, RecurringTransaction, SavingsGoal, Settings, Transaction } from "./types";
+import type {
+  Account,
+  Category,
+  CreditCard,
+  Investment,
+  InvestmentMovement,
+  MonthRecord,
+  RecurringTransaction,
+  SavingsGoal,
+  Settings,
+  Transaction,
+} from "./types";
 
 export interface FullBackup {
   version: number;
@@ -14,10 +25,12 @@ export interface FullBackup {
   recurring: RecurringTransaction[];
   savingsGoals: SavingsGoal[];
   months: MonthRecord[];
+  investments?: Investment[];
+  investmentMovements?: InvestmentMovement[];
 }
 
 export async function buildFullBackup(): Promise<FullBackup> {
-  const [settings, transactions, categories, accounts, creditCards, recurring, savingsGoals, months] =
+  const [settings, transactions, categories, accounts, creditCards, recurring, savingsGoals, months, investments, investmentMovements] =
     await Promise.all([
       db.settings.get("settings"),
       db.transactions.toArray(),
@@ -27,6 +40,8 @@ export async function buildFullBackup(): Promise<FullBackup> {
       db.recurring.toArray(),
       db.savingsGoals.toArray(),
       db.months.toArray(),
+      db.investments.toArray(),
+      db.investmentMovements.toArray(),
     ]);
   return {
     version: CURRENT_SCHEMA_VERSION,
@@ -39,6 +54,8 @@ export async function buildFullBackup(): Promise<FullBackup> {
     recurring,
     savingsGoals,
     months,
+    investments,
+    investmentMovements,
   };
 }
 
@@ -50,7 +67,18 @@ export function downloadJson(backup: FullBackup, filename = "martu-backup.json")
 export async function restoreFromBackup(backup: FullBackup): Promise<void> {
   await db.transaction(
     "rw",
-    [db.transactions, db.categories, db.accounts, db.creditCards, db.recurring, db.savingsGoals, db.months, db.settings],
+    [
+      db.transactions,
+      db.categories,
+      db.accounts,
+      db.creditCards,
+      db.recurring,
+      db.savingsGoals,
+      db.months,
+      db.settings,
+      db.investments,
+      db.investmentMovements,
+    ],
     async () => {
       await Promise.all([
         db.transactions.clear(),
@@ -61,6 +89,8 @@ export async function restoreFromBackup(backup: FullBackup): Promise<void> {
         db.savingsGoals.clear(),
         db.months.clear(),
         db.settings.clear(),
+        db.investments.clear(),
+        db.investmentMovements.clear(),
       ]);
       if (backup.settings) await db.settings.put(backup.settings);
       if (backup.transactions?.length) await db.transactions.bulkAdd(backup.transactions);
@@ -70,6 +100,8 @@ export async function restoreFromBackup(backup: FullBackup): Promise<void> {
       if (backup.recurring?.length) await db.recurring.bulkAdd(backup.recurring);
       if (backup.savingsGoals?.length) await db.savingsGoals.bulkAdd(backup.savingsGoals);
       if (backup.months?.length) await db.months.bulkAdd(backup.months);
+      if (backup.investments?.length) await db.investments.bulkAdd(backup.investments);
+      if (backup.investmentMovements?.length) await db.investmentMovements.bulkAdd(backup.investmentMovements);
     }
   );
 }

@@ -164,7 +164,7 @@ export default function OnboardingPage() {
                     <button
                       key={opt.value}
                       onClick={() => setMainGoal(opt.value)}
-                      className={`border-2 border-ink px-4 py-3 text-left font-sans font-bold press-down ${
+                      className={`rounded-2xl px-4 py-3 text-left font-sans font-bold press-down ${
                         mainGoal === opt.value ? "bg-ink text-paper shadow-hard-sm" : "bg-white"
                       }`}
                     >

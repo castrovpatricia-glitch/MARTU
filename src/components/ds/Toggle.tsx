@@ -17,17 +17,17 @@ export default function Toggle({
       onClick={() => onChange(!checked)}
       className="inline-flex items-center gap-2"
     >
-      {label && <span className="font-mono text-xs uppercase tracking-wide">{label}</span>}
+      {label && <span className="font-mono text-xs font-semibold">{label}</span>}
       <span
         className={cn(
-          "w-12 h-7 border-2 border-ink relative transition-colors shrink-0",
+          "w-12 h-7 rounded-full relative transition-colors shrink-0 shadow-hard-sm",
           checked ? "bg-lime" : "bg-white"
         )}
       >
         <span
           className={cn(
-            "absolute top-0.5 bottom-0.5 w-5 border-2 border-ink bg-ink transition-transform",
-            checked ? "translate-x-[22px]" : "translate-x-0.5"
+            "absolute top-1 bottom-1 w-5 rounded-full bg-ink transition-transform",
+            checked ? "translate-x-[22px]" : "translate-x-1"
           )}
         />
       </span>

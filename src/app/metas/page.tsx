@@ -76,7 +76,7 @@ export default function MetasPage() {
                   Ahorrado: {formatMoney(goal.savedAmount, goal.currency)} — Faltan: {formatMoney(remaining, goal.currency)}
                 </p>
                 {perMonth !== undefined && perMonth > 0 && (
-                  <p className="font-mono text-xs bg-white/60 border-2 border-ink px-2 py-1.5">
+                  <p className="font-mono text-xs bg-white/70 rounded-xl px-3 py-2">
                     Necesitás ahorrar ~{formatMoney(Math.round(perMonth), goal.currency)}/mes para llegar a tiempo.
                   </p>
                 )}
@@ -163,7 +163,7 @@ function GoalFormSheet({ open, onClose }: { open: boolean; onClose: () => void }
               <button
                 key={c}
                 onClick={() => setColor(c)}
-                className={`w-8 h-8 border-2 border-ink ${color === c ? "shadow-hard-sm" : ""}`}
+                className={`w-8 h-8 rounded-full ${color === c ? "shadow-hard-sm ring-2 ring-ink ring-offset-2 ring-offset-white" : ""}`}
                 style={{ backgroundColor: `var(--color-${c})` }}
                 aria-label={c}
               />

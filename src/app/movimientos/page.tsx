@@ -90,7 +90,7 @@ export default function MovimientosPage() {
     <div className="pb-10">
       <PageHeader eyebrow="Todo lo que entra y sale" title="Movimientos" subtitle="the damage, day by day" />
 
-      <div className="px-4 sm:px-6 py-4 border-b-2 border-ink flex flex-col gap-3">
+      <div className="px-4 sm:px-6 py-4 border-b border-ink/10 flex flex-col gap-3">
         <Segmented
           value={view}
           onChange={setView}
@@ -134,7 +134,7 @@ export default function MovimientosPage() {
 
       <div className="flex flex-col">
         {grouped.map(([date, txs]) => (
-          <div key={date} className="border-b-2 border-ink">
+          <div key={date} className="border-b border-ink/10">
             <p className="font-mono text-[11px] uppercase tracking-widest px-4 sm:px-6 pt-3 pb-1 opacity-60">
               {formatDateFull(date)}
             </p>
@@ -154,7 +154,7 @@ export default function MovimientosPage() {
                     onClick={() => openQuickAdd(t.type, t.id)}
                     className="flex-1 min-w-0 flex items-center gap-3 text-left"
                   >
-                    <span className="w-9 h-9 border-2 border-ink flex items-center justify-center shrink-0 bg-cream">
+                    <span className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 bg-cream">
                       <DoodleIcon name={cat?.icon ?? (t.type === "income" ? "coin" : t.type === "saving" ? "piggy" : "arrow")} size={16} />
                     </span>
                     <span className="min-w-0">
@@ -204,7 +204,7 @@ function IconBtn({ label, onClick, children }: { label: string; onClick: () => v
         e.stopPropagation();
         onClick();
       }}
-      className="w-7 h-7 border-2 border-ink bg-white flex items-center justify-center press-down text-xs"
+      className="w-7 h-7 rounded-full bg-white flex items-center justify-center press-down text-xs shadow-hard-sm"
     >
       {children}
     </button>

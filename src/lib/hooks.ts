@@ -40,3 +40,11 @@ export function useSavingsGoals() {
 export function useMonths() {
   return useLiveQuery(() => db.months.orderBy("id").toArray(), []) ?? [];
 }
+
+export function useInvestments() {
+  return useLiveQuery(() => db.investments.toArray(), []) ?? [];
+}
+
+export function useInvestmentMovements() {
+  return useLiveQuery(() => db.investmentMovements.orderBy("date").reverse().toArray(), []) ?? [];
+}

@@ -18,7 +18,7 @@ export default function MoreMenu() {
             key={item.href}
             href={item.href}
             onClick={() => setOpen(false)}
-            className="flex items-center gap-2.5 border-2 border-ink bg-white p-4 press-down shadow-hard-sm font-mono text-xs uppercase tracking-wide font-bold"
+            className="flex items-center gap-2.5 rounded-2xl bg-white p-4 press-down shadow-hard-sm font-mono text-xs font-bold"
           >
             <DoodleIcon name={item.icon} />
             {item.label}

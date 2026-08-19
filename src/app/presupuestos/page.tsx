@@ -55,7 +55,7 @@ export default function PresupuestosPage() {
       <MonthSwitcher />
 
       {alerts.length > 0 && (
-        <div className="px-4 sm:px-6 py-4 border-b-2 border-ink flex flex-col gap-2">
+        <div className="px-4 sm:px-6 py-4 border-b border-ink/10 flex flex-col gap-2">
           {alerts.map((a) => (
             <Block key={a.categoryId} color={a.tone === "over" ? "pink" : "yellow"} shadow="sm" className="py-2.5 px-3.5">
               <p className="font-mono text-xs sm:text-sm">{a.text}</p>
@@ -112,14 +112,14 @@ export default function PresupuestosPage() {
       </section>
 
       {unbudgeted.length > 0 && (
-        <section className="px-4 sm:px-6 py-5 border-t-2 border-ink">
+        <section className="px-4 sm:px-6 py-5 border-t border-ink/10">
           <h2 className="font-hand text-3xl mb-3">Sin presupuesto todavía</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {unbudgeted.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => startEdit(cat.id)}
-                className={`flex items-center gap-2 border-2 border-ink px-3 py-2.5 press-down shadow-hard-sm ${PALETTE_BG[cat.color]}`}
+                className={`flex items-center gap-2 rounded-2xl px-3 py-2.5 press-down shadow-hard-sm ${PALETTE_BG[cat.color]}`}
               >
                 <DoodleIcon name={cat.icon} size={16} />
                 <span className="font-mono text-xs uppercase truncate">{cat.name}</span>

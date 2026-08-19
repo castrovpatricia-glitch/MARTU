@@ -40,17 +40,17 @@ export default function AhorrosPage() {
   const maxAbs = Math.max(...data.evolution.map((e) => Math.abs(e.net)), 1);
 
   return (
-    <div className="pb-10">
+    <div className="pb-10 px-4 sm:px-6 pt-4 flex flex-col gap-4">
       <PageHeader eyebrow="Lo que va quedando" title="Ahorros" subtitle="money, mostly saved" />
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 border-b-2 border-ink">
-        <Block color="mint" shadow="none" className="border-0 sm:border-r-2 border-b-2 sm:border-b-0 border-ink">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <Block color="mint" shadow="sm">
           <StatNumber label="Ahorro total" value={formatMoney(data.total, currency, locale)} size="xl" />
         </Block>
-        <Block color="cream" shadow="none" className="border-0 sm:border-r-2 border-b-2 sm:border-b-0 border-ink">
+        <Block color="cream" shadow="sm">
           <StatNumber label="Ahorro del mes" value={formatMoney(data.summary.netSavings, currency, locale)} size="lg" />
         </Block>
-        <Block color="yellow" shadow="none" className="border-0 border-ink">
+        <Block color="yellow" shadow="sm">
           <StatNumber
             label="% del ingreso ahorrado"
             value={formatPercent(Math.max(data.summary.savingsRate, 0))}
@@ -59,7 +59,7 @@ export default function AhorrosPage() {
         </Block>
       </div>
 
-      <section className="px-4 sm:px-6 py-5 border-b-2 border-ink">
+      <Block color="white" shadow="sm">
         <h2 className="font-hand text-3xl mb-4">Evolución</h2>
         <div className="grid grid-cols-6 gap-2 items-end h-32">
           {data.evolution.map((e) => {
@@ -68,7 +68,7 @@ export default function AhorrosPage() {
               <div key={e.monthId} className="flex flex-col items-center gap-1 h-full justify-end">
                 <div className="w-full flex-1 flex items-end">
                   <div
-                    className={`w-full border-2 border-ink ${e.net >= 0 ? "bg-lime" : "bg-pink"}`}
+                    className={`w-full rounded-t-lg ${e.net >= 0 ? "bg-lime" : "bg-pink"}`}
                     style={{ height: `${h}%` }}
                   />
                 </div>
@@ -77,28 +77,28 @@ export default function AhorrosPage() {
             );
           })}
         </div>
-      </section>
+      </Block>
 
-      <div className="px-4 sm:px-6 py-5 flex gap-3 border-b-2 border-ink">
+      <div className="flex gap-3">
         <Button onClick={() => openQuickAdd("saving")}>+ Movimiento de ahorro</Button>
         <Link href="/metas">
           <Button variant="outline">Ver metas</Button>
         </Link>
       </div>
 
-      <section className="px-4 sm:px-6 py-5">
+      <Block color="white" shadow="sm">
         <h2 className="font-hand text-3xl mb-3">Movimientos hacia / desde ahorros</h2>
         {data.savingMoves.length === 0 ? (
           <EmptyState icon="piggy" title="Todavía no moviste plata a tus ahorros." />
         ) : (
           <div className="flex flex-col">
             {data.savingMoves.map((t) => (
-              <div key={t.id} className="flex items-center justify-between py-2.5 border-b border-ink/15">
+              <div key={t.id} className="flex items-center justify-between py-2.5 border-b border-ink/8 last:border-b-0">
                 <span className="flex items-center gap-2 font-mono text-sm">
                   <DoodleIcon name={t.direction === "in" ? "arrow" : "arrow"} size={14} />
                   {t.date} · {t.description ?? (t.direction === "in" ? "Depósito" : "Retiro")}
                 </span>
-                <span className={`font-display text-lg ${t.direction === "in" ? "text-lime" : "text-orange"}`}>
+                <span className={`font-display font-bold text-lg ${t.direction === "in" ? "text-lime" : "text-orange"}`}>
                   {t.direction === "in" ? "+" : "−"}
                   {formatMoney(t.amount, currency, locale)}
                 </span>
@@ -106,7 +106,7 @@ export default function AhorrosPage() {
             ))}
           </div>
         )}
-      </section>
+      </Block>
     </div>
   );
 }

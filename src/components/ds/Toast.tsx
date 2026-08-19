@@ -18,7 +18,7 @@ export default function Toast() {
 
   return (
     <div className="fixed left-1/2 -translate-x-1/2 bottom-20 sm:bottom-6 z-[60] w-[92%] sm:w-auto animate-toast-in">
-      <div className="bg-ink text-paper border-2 border-ink shadow-hard-lg px-4 py-3 flex items-center gap-3 font-mono text-sm">
+      <div className="bg-ink text-paper rounded-full shadow-hard-lg pl-4 pr-2 py-2 flex items-center gap-3 font-mono text-sm">
         <DoodleIcon name="check" className="shrink-0" />
         <span className="flex-1">{toast.message}</span>
         {toast.onUndo && (
@@ -27,7 +27,7 @@ export default function Toast() {
               toast.onUndo?.();
               dismissToast();
             }}
-            className="uppercase font-bold tracking-wide underline underline-offset-2 shrink-0"
+            className="font-bold rounded-full bg-white/10 px-3 py-1.5 shrink-0"
           >
             Deshacer
           </button>

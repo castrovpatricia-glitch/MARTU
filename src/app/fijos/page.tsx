@@ -51,25 +51,23 @@ export default function FijosPage() {
   const { currency, locale } = settings;
 
   return (
-    <div className="pb-10">
+    <div className="pb-10 px-4 sm:px-6 pt-4 flex flex-col gap-4">
       <PageHeader eyebrow="Lo que se va sí o sí" title="Fijos" subtitle="rent, wifi & the usual suspects" />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 border-b-2 border-ink">
-        <Block color="orange" shadow="none" className="border-0 sm:border-r-2 border-b-2 sm:border-b-0 border-ink">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <Block color="orange" shadow="sm">
           <StatNumber label="Gastos fijos mensuales" value={formatMoney(monthlyTotal, currency, locale)} size="xl" />
         </Block>
-        <Block color="cream" shadow="none" className="border-0 border-ink flex flex-col justify-center">
+        <Block color="cream" shadow="sm" className="flex flex-col justify-center">
           <p className="font-hand text-2xl">
             representan el {formatPercent(pctOfIncome)} de tus ingresos
           </p>
         </Block>
       </div>
 
-      <div className="px-4 sm:px-6 py-5 border-b-2 border-ink">
-        <Button onClick={() => setCreating(true)}>+ Nuevo gasto fijo</Button>
-      </div>
+      <Button onClick={() => setCreating(true)} className="self-start">+ Nuevo gasto fijo</Button>
 
-      <section className="px-4 sm:px-6 py-5 border-b-2 border-ink">
+      <Block color="white" shadow="sm">
         <h2 className="font-hand text-3xl mb-3">Próximos pagos</h2>
         {upcoming.length === 0 ? (
           <EmptyState icon="repeat" title="Todavía no cargaste gastos recurrentes." />
@@ -80,7 +78,7 @@ export default function FijosPage() {
             ))}
           </div>
         )}
-      </section>
+      </Block>
 
       <RecurringFormSheet open={creating} onClose={() => setCreating(false)} categories={categories} />
     </div>
@@ -113,7 +111,7 @@ function RecurringRow({
         </span>
         <button
           onClick={() => deleteRecurring(item.id)}
-          className="w-7 h-7 border-2 border-ink bg-white flex items-center justify-center text-xs press-down"
+          className="w-7 h-7 rounded-full bg-white flex items-center justify-center text-xs press-down shadow-hard-sm"
           aria-label="Eliminar"
         >
           ✕

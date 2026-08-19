@@ -19,9 +19,9 @@ const COLOR_SOLID: Record<NonNullable<Props["color"]>, string> = {
 };
 
 const SIZE_CLASS: Record<NonNullable<Props["size"]>, string> = {
-  sm: "px-3 py-1.5 text-sm",
-  md: "px-4 py-2.5 text-base",
-  lg: "px-6 py-4 text-lg",
+  sm: "px-4 py-2 text-sm",
+  md: "px-5 py-3 text-base",
+  lg: "px-7 py-4 text-lg",
 };
 
 export default function Button({
@@ -36,10 +36,10 @@ export default function Button({
   return (
     <button
       className={cn(
-        "font-sans font-bold uppercase tracking-wide border-2 border-ink press-down inline-flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed",
+        "font-sans font-bold rounded-full press-down inline-flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed",
         variant === "solid" && "shadow-hard-sm " + COLOR_SOLID[color],
-        variant === "outline" && "bg-transparent text-ink shadow-hard-sm",
-        variant === "ghost" && "bg-transparent text-ink border-transparent shadow-none",
+        variant === "outline" && "bg-white text-ink border border-ink/10 shadow-hard-sm",
+        variant === "ghost" && "bg-transparent text-ink shadow-none",
         SIZE_CLASS[size],
         full && "w-full",
         className

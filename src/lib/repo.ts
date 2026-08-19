@@ -6,6 +6,8 @@ import type {
   Account,
   Category,
   CreditCard,
+  Investment,
+  InvestmentMovement,
   RecurringTransaction,
   SavingsGoal,
   Settings,
@@ -276,6 +278,42 @@ export async function deleteSavingsGoal(id: string): Promise<void> {
   await db.savingsGoals.update(id, { archived: true });
 }
 
+// ---------- Investments ----------
+
+export async function listInvestments(): Promise<Investment[]> {
+  return db.investments.toArray();
+}
+
+export async function addInvestment(data: Omit<Investment, "id" | "createdAt">): Promise<Investment> {
+  const inv: Investment = { ...data, id: newId(), createdAt: nowIso() };
+  await db.investments.add(inv);
+  return inv;
+}
+
+export async function updateInvestment(id: string, patch: Partial<Investment>): Promise<void> {
+  await db.investments.update(id, patch);
+}
+
+export async function deleteInvestment(id: string): Promise<void> {
+  await db.investments.update(id, { archived: true });
+}
+
+export async function listInvestmentMovements(): Promise<InvestmentMovement[]> {
+  return db.investmentMovements.orderBy("date").reverse().toArray();
+}
+
+export async function addInvestmentMovement(
+  data: Omit<InvestmentMovement, "id" | "createdAt">
+): Promise<InvestmentMovement> {
+  const mv: InvestmentMovement = { ...data, id: newId(), createdAt: nowIso() };
+  await db.investmentMovements.add(mv);
+  return mv;
+}
+
+export async function deleteInvestmentMovement(id: string): Promise<void> {
+  await db.investmentMovements.delete(id);
+}
+
 // ---------- Months ----------
 
 export async function listMonths(): Promise<{ id: string; closed: boolean; closedAt?: string }[]> {
@@ -305,7 +343,18 @@ export async function ensureMonth(monthId: string): Promise<void> {
 export async function resetAllData(): Promise<void> {
   await db.transaction(
     "rw",
-    [db.transactions, db.categories, db.accounts, db.creditCards, db.recurring, db.savingsGoals, db.months, db.settings],
+    [
+      db.transactions,
+      db.categories,
+      db.accounts,
+      db.creditCards,
+      db.recurring,
+      db.savingsGoals,
+      db.months,
+      db.settings,
+      db.investments,
+      db.investmentMovements,
+    ],
     async () => {
       await Promise.all([
         db.transactions.clear(),
@@ -316,6 +365,8 @@ export async function resetAllData(): Promise<void> {
         db.savingsGoals.clear(),
         db.months.clear(),
         db.settings.clear(),
+        db.investments.clear(),
+        db.investmentMovements.clear(),
       ]);
     }
   );

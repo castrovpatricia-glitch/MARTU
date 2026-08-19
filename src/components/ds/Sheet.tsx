@@ -41,7 +41,7 @@ export default function Sheet({
       <div className="absolute inset-0 bg-ink/50" onClick={onClose} />
       <div
         className={cn(
-          "relative w-full sm:max-w-md border-2 border-ink shadow-hard-lg max-h-[92vh] overflow-y-auto animate-pop-in",
+          "relative w-full sm:max-w-md rounded-t-[32px] sm:rounded-[32px] shadow-hard-lg max-h-[92vh] overflow-y-auto animate-pop-in",
           wide && "sm:max-w-2xl",
           color
         )}
@@ -49,19 +49,19 @@ export default function Sheet({
         aria-modal="true"
         aria-label={title}
       >
-        <div className="sticky top-0 flex items-center justify-between border-b-2 border-ink bg-inherit px-4 sm:px-6 py-3.5 z-10">
-          <h2 className="font-display text-xl sm:text-2xl">{title}</h2>
+        <div className="sticky top-0 flex items-center justify-between bg-inherit px-5 sm:px-6 py-4 z-10">
+          <h2 className="font-display font-bold text-xl sm:text-2xl">{title}</h2>
           <button
             onClick={onClose}
             aria-label="Cerrar"
-            className="w-9 h-9 border-2 border-ink bg-white text-ink flex items-center justify-center press-down shadow-hard-sm shrink-0"
+            className="w-9 h-9 rounded-full bg-white text-ink flex items-center justify-center press-down shadow-hard-sm shrink-0"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
               <path d="M5 5l14 14M19 5 5 19" />
             </svg>
           </button>
         </div>
-        <div className="px-4 sm:px-6 py-5">{children}</div>
+        <div className="px-5 sm:px-6 py-5">{children}</div>
       </div>
     </div>
   );

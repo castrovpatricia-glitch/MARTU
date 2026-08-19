@@ -21,8 +21,8 @@ export default function StatNumber({
   }[size];
   return (
     <div className={cn("flex flex-col gap-1", align === "right" && "items-end", align === "center" && "items-center", className)}>
-      <span className="font-mono text-[11px] sm:text-xs uppercase tracking-wider opacity-70">{label}</span>
-      <span className={cn("font-display leading-none tabular-nums", sizeClass)}>{value}</span>
+      <span className="font-mono text-[11px] sm:text-xs font-semibold uppercase tracking-wider opacity-70">{label}</span>
+      <span className={cn("font-display font-bold leading-none tabular-nums", sizeClass)}>{value}</span>
     </div>
   );
 }

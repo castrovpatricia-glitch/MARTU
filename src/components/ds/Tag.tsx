@@ -19,7 +19,7 @@ export default function Tag({
     <Comp
       onClick={onClick}
       className={cn(
-        "inline-flex items-center border-2 border-ink px-2.5 py-1 font-mono text-xs uppercase tracking-wide",
+        "inline-flex items-center rounded-full px-3 py-1.5 font-mono text-xs font-semibold tracking-wide",
         PALETTE_BG[color],
         PALETTE_TEXT[color],
         onClick && "press-down shadow-hard-sm",

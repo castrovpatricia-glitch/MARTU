@@ -1,4 +1,4 @@
-import type { Category, CreditCard, Settings, Transaction } from "./types";
+import type { Category, CreditCard, Investment, InvestmentMovement, Settings, Transaction } from "./types";
 import { daysElapsedInMonth, daysRemainingInMonth, getMonthRange, parseIsoDate, shiftMonthId, weekIndexInMonth, weekStart } from "./date";
 
 // All financial derivations live here so components never duplicate math.
@@ -371,6 +371,34 @@ function addOneDay(d: Date): Date {
   const nd = new Date(d);
   nd.setDate(nd.getDate() + 1);
   return nd;
+}
+
+// ---------- Investments ----------
+
+export interface InvestmentStats {
+  investedLocal: number; // net minor units of local currency committed
+  dollarsHeld: number; // net minor units of USD, only meaningful for "dolares" kind
+  currentValue: number; // minor units, local currency (falls back to investedLocal if unset)
+  gain: number; // currentValue - investedLocal
+}
+
+export function computeInvestmentStats(investment: Investment, movements: InvestmentMovement[]): InvestmentStats {
+  const own = movements.filter((m) => m.investmentId === investment.id);
+  let investedLocal = 0;
+  let dollarsHeld = 0;
+  for (const m of own) {
+    const sign = m.direction === "buy" ? 1 : -1;
+    investedLocal += sign * m.amountLocal;
+    dollarsHeld += sign * (m.amountForeign ?? 0);
+  }
+  const currentValue = investment.currentValue ?? investedLocal;
+  return { investedLocal, dollarsHeld, currentValue, gain: currentValue - investedLocal };
+}
+
+export function computeTotalDollarsHeld(investments: Investment[], movements: InvestmentMovement[]): number {
+  return investments
+    .filter((i) => i.kind === "dolares" && !i.archived)
+    .reduce((sum, inv) => sum + computeInvestmentStats(inv, movements).dollarsHeld, 0);
 }
 
 export { shiftMonthId };

@@ -19,14 +19,14 @@ export default function CalendarGrid({
 }) {
   const leadingBlanks = Array.from({ length: firstWeekday });
   return (
-    <div className="grid grid-cols-7 border-l-2 border-t-2 border-ink">
+    <div className="grid grid-cols-7 gap-1.5">
       {["D", "L", "M", "M", "J", "V", "S"].map((d, i) => (
-        <div key={i} className="font-mono text-[10px] text-center py-1 border-r-2 border-b-2 border-ink opacity-50">
+        <div key={i} className="font-mono text-[10px] font-semibold text-center py-1 opacity-40">
           {d}
         </div>
       ))}
       {leadingBlanks.map((_, i) => (
-        <div key={`b${i}`} className="border-r-2 border-b-2 border-ink bg-ink/5 min-h-14" />
+        <div key={`b${i}`} className="rounded-xl min-h-14" />
       ))}
       {days.map((day) => {
         const intensity = max > 0 ? day.total / max : 0;
@@ -34,7 +34,8 @@ export default function CalendarGrid({
           <div
             key={day.date}
             className={cn(
-              "border-r-2 border-b-2 border-ink min-h-14 sm:min-h-20 p-1 sm:p-1.5 flex flex-col justify-between",
+              "rounded-xl min-h-14 sm:min-h-20 p-1.5 flex flex-col justify-between",
+              day.total === 0 && "bg-ink/5",
               day.total > 0 && intensity > 0.6 && "bg-orange text-white",
               day.total > 0 && intensity <= 0.6 && intensity > 0.25 && "bg-yellow",
               day.total > 0 && intensity <= 0.25 && "bg-lime"

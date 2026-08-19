@@ -12,6 +12,7 @@ export const PRIMARY_NAV: NavItem[] = [
   { href: "/mes", label: "Mes", icon: "target" },
   { href: "/presupuestos", label: "Presupuestos", icon: "piggy" },
   { href: "/ahorros", label: "Ahorros", icon: "coin" },
+  { href: "/inversiones", label: "Inversiones", icon: "cloud" },
   { href: "/metas", label: "Metas", icon: "star" },
   { href: "/fijos", label: "Fijos", icon: "repeat" },
   { href: "/historial", label: "Historial", icon: "book" },
@@ -27,6 +28,7 @@ export const MOBILE_MAIN_NAV: NavItem[] = [
 export const MOBILE_MORE_NAV: NavItem[] = [
   { href: "/presupuestos", label: "Presupuestos", icon: "piggy" },
   { href: "/ahorros", label: "Ahorros", icon: "coin" },
+  { href: "/inversiones", label: "Inversiones", icon: "cloud" },
   { href: "/metas", label: "Metas", icon: "star" },
   { href: "/fijos", label: "Fijos", icon: "repeat" },
   { href: "/suscripciones", label: "Suscripciones", icon: "repeat" },

@@ -15,8 +15,8 @@ export default function BottomNav() {
   const [home, movs, mes] = MOBILE_MAIN_NAV;
 
   return (
-    <nav className="md:hidden fixed bottom-0 inset-x-0 z-40 border-t-2 border-ink bg-cream">
-      <div className="grid grid-cols-5 items-stretch">
+    <nav className="md:hidden fixed bottom-3 inset-x-3 z-40">
+      <div className="grid grid-cols-5 items-stretch bg-white rounded-[28px] shadow-hard-lg px-1">
         <NavLink item={home} active={pathname === "/"} />
         <NavLink item={movs} active={pathname.startsWith("/movimientos")} />
 
@@ -24,7 +24,7 @@ export default function BottomNav() {
           <button
             aria-label="Agregar"
             onClick={() => setFabMenuOpen(!fabMenuOpen)}
-            className="w-14 h-14 -mt-6 rounded-full bg-orange text-white border-2 border-ink shadow-hard flex items-center justify-center press-down"
+            className="w-14 h-14 -mt-5 rounded-full bg-orange text-white shadow-hard flex items-center justify-center press-down"
           >
             <span className="text-3xl leading-none pb-1">+</span>
           </button>
@@ -39,7 +39,7 @@ export default function BottomNav() {
 }
 
 function isMoreActive(pathname: string) {
-  return ["/presupuestos", "/ahorros", "/metas", "/fijos", "/suscripciones", "/tarjetas", "/historial", "/ajustes", "/mas"].some(
+  return ["/presupuestos", "/ahorros", "/inversiones", "/metas", "/fijos", "/suscripciones", "/tarjetas", "/historial", "/ajustes", "/mas"].some(
     (p) => pathname.startsWith(p)
   );
 }
@@ -64,8 +64,8 @@ function NavLink({
         }
       }}
       className={cn(
-        "flex flex-col items-center justify-center gap-0.5 py-2 font-mono text-[10px] uppercase tracking-wide",
-        active ? "text-orange font-bold" : "text-ink/70"
+        "flex flex-col items-center justify-center gap-0.5 py-3 font-mono text-[10px] font-semibold",
+        active ? "text-orange" : "text-ink/50"
       )}
     >
       <DoodleIcon name={item.icon} size={20} />

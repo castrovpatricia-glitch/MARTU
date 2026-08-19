@@ -17,16 +17,15 @@ export default function Segmented<T extends string>({
   className?: string;
 }) {
   return (
-    <div className={cn("inline-flex border-2 border-ink overflow-hidden flex-wrap", className)}>
-      {options.map((opt, i) => (
+    <div className={cn("inline-flex rounded-full bg-white p-1 flex-wrap gap-1", className)}>
+      {options.map((opt) => (
         <button
           key={opt.value}
           type="button"
           onClick={() => onChange(opt.value)}
           className={cn(
-            "px-3 py-2 font-mono text-xs uppercase tracking-wide transition-colors",
-            i > 0 && "border-l-2 border-ink",
-            value === opt.value ? "bg-ink text-paper" : "bg-white text-ink hover:bg-cream"
+            "px-4 py-2 rounded-full font-mono text-xs font-semibold transition-colors",
+            value === opt.value ? "bg-ink text-paper" : "bg-transparent text-ink/60 hover:text-ink"
           )}
         >
           {opt.label}

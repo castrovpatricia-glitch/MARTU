@@ -13,7 +13,7 @@ interface Props {
 export default function MoneyInput({ value, onChange, currencySymbol = "$", autoFocus, placeholder = "0" }: Props) {
   const id = useId();
   return (
-    <div className="flex items-center gap-2 border-2 border-ink bg-white text-ink px-3 py-3 focus-within:shadow-hard-sm transition-shadow">
+    <div className="flex items-center gap-2 rounded-2xl bg-white text-ink px-4 py-3.5 shadow-hard-sm focus-within:shadow-hard transition-shadow">
       <span className="font-display text-2xl sm:text-3xl">{currencySymbol}</span>
       <input
         id={id}

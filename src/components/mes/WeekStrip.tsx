@@ -13,7 +13,7 @@ export default function WeekStrip({ week }: { week: WeekSummary }) {
           <div key={d.date} className="flex flex-col items-center gap-1 h-full justify-end">
             <div className="w-full flex-1 flex items-end">
               <div
-                className={cn("w-full border-2 border-ink", d.total > 0 ? "bg-orange" : "bg-white")}
+                className={cn("w-full rounded-full", d.total > 0 ? "bg-orange" : "bg-ink/8")}
                 style={{ height: `${h}%` }}
               />
             </div>

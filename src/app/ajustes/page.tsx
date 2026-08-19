@@ -174,7 +174,7 @@ export default function AjustesPage() {
         ) : (
           <div className="flex flex-col gap-2">
             {accounts.filter((a) => !a.archived).map((a) => (
-              <div key={a.id} className={`flex items-center justify-between border-2 border-ink px-3 py-2 ${PALETTE_BG[a.color]}`}>
+              <div key={a.id} className={`flex items-center justify-between rounded-2xl px-4 py-2.5 ${PALETTE_BG[a.color]}`}>
                 <span className="font-sans font-bold text-sm">{a.name}</span>
                 <span className="flex items-center gap-3">
                   <span className="font-mono text-xs uppercase">{a.kind}</span>
@@ -243,7 +243,7 @@ export default function AjustesPage() {
 
 function SectionBlock({ title, action, children }: { title: string; action?: ReactNode; children: ReactNode }) {
   return (
-    <section className="px-4 sm:px-6 py-5 border-b-2 border-ink">
+    <section className="px-4 sm:px-6 py-5 border-b border-ink/10">
       <div className="flex items-center justify-between mb-3">
         <h2 className="font-hand text-3xl">{title}</h2>
         {action}
@@ -265,15 +265,15 @@ function CategoryList({
   return (
     <div className="flex flex-col gap-2">
       {categories.map((c) => (
-        <div key={c.id} className={`flex items-center justify-between border-2 border-ink px-3 py-2 ${PALETTE_BG[c.color]}`}>
+        <div key={c.id} className={`flex items-center justify-between rounded-2xl px-4 py-2.5 ${PALETTE_BG[c.color]}`}>
           <button onClick={() => onEdit(c)} className="flex items-center gap-2 font-sans font-bold text-sm">
             <DoodleIcon name={c.icon} size={16} /> {c.name}
           </button>
           <div className="flex items-center gap-1">
-            <button onClick={() => onMove(c.id, -1)} className="w-6 h-6 border-2 border-ink bg-white text-xs press-down">
+            <button onClick={() => onMove(c.id, -1)} className="w-6 h-6 rounded-full bg-white text-xs press-down shadow-hard-sm">
               ↑
             </button>
-            <button onClick={() => onMove(c.id, 1)} className="w-6 h-6 border-2 border-ink bg-white text-xs press-down">
+            <button onClick={() => onMove(c.id, 1)} className="w-6 h-6 rounded-full bg-white text-xs press-down shadow-hard-sm">
               ↓
             </button>
             <button onClick={() => deleteCategory(c.id)} className="font-mono text-[11px] underline ml-1">
@@ -372,7 +372,7 @@ function CategoryFields({
         <Input autoFocus value={name} onChange={(e) => setName(e.target.value)} />
       </Field>
       <Field label="Ícono">
-        <div className="grid grid-cols-8 gap-1.5 max-h-40 overflow-y-auto border-2 border-ink p-2 bg-white">
+        <div className="grid grid-cols-8 gap-1.5 max-h-40 overflow-y-auto rounded-2xl p-2 bg-white">
           {DOODLE_ICON_NAMES.map((i) => (
             <button
               key={i}
@@ -390,7 +390,7 @@ function CategoryFields({
             <button
               key={c}
               onClick={() => setColor(c)}
-              className={`w-8 h-8 border-2 border-ink ${color === c ? "shadow-hard-sm" : ""}`}
+              className={`w-8 h-8 rounded-full ${color === c ? "shadow-hard-sm ring-2 ring-ink ring-offset-2 ring-offset-white" : ""}`}
               style={{ backgroundColor: `var(--color-${c})` }}
               aria-label={c}
             />
@@ -439,7 +439,7 @@ function AccountFormSheet({ open, onClose }: { open: boolean; onClose: () => voi
               <button
                 key={c}
                 onClick={() => setColor(c)}
-                className={`w-8 h-8 border-2 border-ink ${color === c ? "shadow-hard-sm" : ""}`}
+                className={`w-8 h-8 rounded-full ${color === c ? "shadow-hard-sm ring-2 ring-ink ring-offset-2 ring-offset-white" : ""}`}
                 style={{ backgroundColor: `var(--color-${c})` }}
                 aria-label={c}
               />

@@ -3,6 +3,8 @@ import type {
   Account,
   Category,
   CreditCard,
+  Investment,
+  InvestmentMovement,
   MonthRecord,
   RecurringTransaction,
   SavingsGoal,
@@ -23,6 +25,8 @@ class MartuDB extends Dexie {
   savingsGoals!: EntityTable<SavingsGoal, "id">;
   months!: EntityTable<MonthRecord, "id">;
   settings!: EntityTable<Settings, "id">;
+  investments!: EntityTable<Investment, "id">;
+  investmentMovements!: EntityTable<InvestmentMovement, "id">;
 
   constructor() {
     super("martu-db");
@@ -35,6 +39,10 @@ class MartuDB extends Dexie {
       savingsGoals: "id",
       months: "id",
       settings: "id",
+    });
+    this.version(2).stores({
+      investments: "id",
+      investmentMovements: "id, investmentId, date",
     });
   }
 }

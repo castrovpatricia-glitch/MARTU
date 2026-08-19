@@ -24,13 +24,13 @@ export default function CategoryPicker({
             type="button"
             onClick={() => onChange(cat.id)}
             className={cn(
-              "flex flex-col items-center gap-1 border-2 border-ink px-1.5 py-2.5 press-down text-center",
-              active ? "shadow-hard-sm" : "shadow-none opacity-70",
+              "flex flex-col items-center gap-1 rounded-2xl px-1.5 py-2.5 press-down text-center",
+              active ? "shadow-hard-sm" : "shadow-none opacity-60",
               PALETTE_BG[cat.color]
             )}
           >
             <DoodleIcon name={cat.icon} size={20} />
-            <span className="font-mono text-[9.5px] uppercase tracking-tight leading-tight line-clamp-2">
+            <span className="font-mono text-[9.5px] font-semibold leading-tight line-clamp-2">
               {cat.name}
             </span>
           </button>

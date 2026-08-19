@@ -10,7 +10,6 @@ interface BlockProps {
   children?: ReactNode;
   shadow?: "sm" | "md" | "lg" | "none";
   padded?: boolean;
-  texture?: boolean;
   onClick?: () => void;
 }
 
@@ -28,19 +27,17 @@ export default function Block({
   children,
   shadow = "md",
   padded = true,
-  texture = true,
   onClick,
 }: BlockProps) {
   return (
     <Tag
       onClick={onClick}
       className={cn(
-        "border-2 border-ink relative",
-        texture && "paper-texture",
+        "rounded-3xl relative",
         PALETTE_BG[color],
         PALETTE_TEXT[color],
         SHADOW_CLASS[shadow],
-        padded && "p-4 sm:p-5",
+        padded && "p-5 sm:p-6",
         onClick && "cursor-pointer press-down",
         className
       )}

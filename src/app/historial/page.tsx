@@ -61,7 +61,7 @@ export default function HistorialPage() {
                 <th key={r.monthId} className="pb-3 px-2">
                   <button
                     onClick={() => openMonth(r.monthId)}
-                    className="font-display text-lg sm:text-xl press-down border-2 border-ink px-2.5 py-1.5 shadow-hard-sm bg-white w-full"
+                    className="font-display font-bold text-lg sm:text-xl press-down rounded-2xl px-2.5 py-1.5 shadow-hard-sm bg-white w-full"
                   >
                     {monthShortLabel(r.monthId)}
                   </button>
@@ -76,7 +76,7 @@ export default function HistorialPage() {
                   {metric.label}
                 </td>
                 {rows.map((r) => (
-                  <td key={r.monthId} className="text-center font-display text-base sm:text-lg py-3 px-2 border-t-2 border-ink/10">
+                  <td key={r.monthId} className="text-center font-display text-base sm:text-lg py-3 px-2 border-t border-ink/10/10">
                     {metric.get(r)}
                   </td>
                 ))}
@@ -86,7 +86,7 @@ export default function HistorialPage() {
         </table>
       </div>
 
-      <section className="px-4 sm:px-6 py-5 border-t-2 border-ink">
+      <section className="px-4 sm:px-6 py-5 border-t border-ink/10">
         <h2 className="font-hand text-3xl mb-4">Evolución de gastos</h2>
         <div className="grid gap-2 items-end h-40" style={{ gridTemplateColumns: `repeat(${rows.length}, minmax(0,1fr))` }}>
           {rows.map((r) => {
@@ -95,7 +95,7 @@ export default function HistorialPage() {
             return (
               <div key={r.monthId} className="flex flex-col items-center gap-1 h-full justify-end">
                 <div className="w-full flex-1 flex items-end">
-                  <div className="w-full border-2 border-ink bg-orange" style={{ height: `${h}%` }} />
+                  <div className="w-full rounded-t-lg bg-orange" style={{ height: `${h}%` }} />
                 </div>
                 <span className="font-mono text-[10px] font-bold">{monthShortLabel(r.monthId)}</span>
               </div>

@@ -29,7 +29,7 @@ export default function TarjetasPage() {
     <div className="pb-10">
       <PageHeader eyebrow="Lo que ya gastaste (pero pagás después)" title="Tarjetas" subtitle="buy now, cry later" />
 
-      <div className="px-4 sm:px-6 py-5 border-b-2 border-ink">
+      <div className="px-4 sm:px-6 py-5 border-b border-ink/10">
         <Button onClick={() => setCreating(true)}>+ Nueva tarjeta</Button>
       </div>
 
@@ -59,7 +59,7 @@ export default function TarjetasPage() {
                     <p className="font-mono text-[11px] opacity-60">período {cycle.cycleStart} → {cycle.cycleEnd}</p>
                   </div>
                   {nextCycleTotal > 0 && (
-                    <p className="font-mono text-xs bg-white/60 border-2 border-ink px-2 py-1.5">
+                    <p className="font-mono text-xs bg-white/70 rounded-xl px-3 py-2">
                       Ya vas acumulando {formatMoney(nextCycleTotal, currency, locale)} para el próximo resumen.
                     </p>
                   )}
@@ -113,7 +113,7 @@ function CardFormSheet({ open, onClose }: { open: boolean; onClose: () => void }
               <button
                 key={c}
                 onClick={() => setColor(c)}
-                className={`w-8 h-8 border-2 border-ink ${color === c ? "shadow-hard-sm" : ""}`}
+                className={`w-8 h-8 rounded-full ${color === c ? "shadow-hard-sm ring-2 ring-ink ring-offset-2 ring-offset-white" : ""}`}
                 style={{ backgroundColor: `var(--color-${c})` }}
                 aria-label={c}
               />

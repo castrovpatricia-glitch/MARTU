@@ -165,4 +165,29 @@ export interface Settings {
   createdAt: string;
 }
 
+export type InvestmentKind = "dolares" | "plazo_fijo" | "acciones" | "cripto" | "fondo" | "otro";
+
+export interface Investment {
+  id: ID;
+  name: string;
+  kind: InvestmentKind;
+  color: PaletteColor;
+  currentValue?: number; // minor units, local currency — manually updated market value
+  archived?: boolean;
+  createdAt: string;
+}
+
+export type InvestmentDirection = "buy" | "sell";
+
+export interface InvestmentMovement {
+  id: ID;
+  investmentId: ID;
+  direction: InvestmentDirection;
+  amountLocal: number; // minor units, local currency committed/returned
+  amountForeign?: number; // minor units, only for "dolares" kind — USD bought/sold
+  date: string; // ISO yyyy-mm-dd
+  notes?: string;
+  createdAt: string;
+}
+
 export const CURRENT_SCHEMA_VERSION = 1;
